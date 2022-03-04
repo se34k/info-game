@@ -1,9 +1,7 @@
 package com.infolk.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.infolk.game.screens.GameScreen;
 import com.infolk.game.screens.MainMenu;
 
 public class App extends Game {
@@ -11,13 +9,20 @@ public class App extends Game {
 	public static final int SCREEN_WIDTH = 1920;
 	public static final int SCREEN_HEIGHT = 1080;
 	
-	public SpriteBatch batch;
-	public BitmapFont font;
+	public GameManager manager;
+	
+	public App() {
+		super();
+		
+		manager = new GameManager();
+	}
+	
+	public void startGame() {
+		this.setScreen(new GameScreen(this));
+	}
 
 	@Override
 	public void create() {
-		batch = new SpriteBatch();
-		font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
 		this.setScreen(new MainMenu(this));
 	}
 	
@@ -26,8 +31,6 @@ public class App extends Game {
 	}
 	
 	public void dispose() {
-		batch.dispose();
-		font.dispose();
 	}
 	
 }
