@@ -83,6 +83,7 @@ public class MainMenu implements Screen {
 			button.addListener(new ClickListener() {
 				public void clicked(InputEvent event, float x, float y) {
 					clickSound.play(effectsVolume);
+					music.stop();
 					app.changeScreen(screenName);
 				}
 
@@ -158,7 +159,6 @@ public class MainMenu implements Screen {
 		textButtonStyle.over = skin.newDrawable("red", Color.RED);
 		textButtonStyle.font = skin.getFont("default");
 		skin.add("default", textButtonStyle);
-
 	}
 
 	public void setupLogoAndDescription() {
