@@ -147,9 +147,9 @@ public class MainMenu implements Screen {
 		Pixmap pixmap = new Pixmap(1, 1, Format.RGBA8888);
 		pixmap.setColor(Color.RED);
 		pixmap.fill();
-		skin.add("white", new Texture(pixmap));
+		skin.add("red", new Texture(pixmap));
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.over = skin.newDrawable("white", Color.RED);
+		textButtonStyle.over = skin.newDrawable("red", Color.RED);
 		textButtonStyle.font = skin.getFont("default");
 		skin.add("default", textButtonStyle);
 
