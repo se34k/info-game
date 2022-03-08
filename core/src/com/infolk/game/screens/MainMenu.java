@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -20,7 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.infolk.game.App;
 
@@ -45,6 +46,7 @@ public class MainMenu implements Screen {
 
 	private float musicVolume = 0.1f, effectsVolume = 1f;
 	private Music music;
+	private Sound selectSound;
 	private Sound clickSound;
 
 	public MainMenu(final App app) {
@@ -67,42 +69,32 @@ public class MainMenu implements Screen {
 		music.play();
 		setMusicVolume(musicVolume);
 
+		selectSound = Gdx.audio.newSound(Gdx.files.internal("sounds/select.mp3"));
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/click.mp3"));
 
-		addButton("Start").addListener(new ChangeListener() {
+		addButton("Start");
+		addButton("Options");
+		addButton("About");
+		addButton("Exit");
 
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				clickSound.play(effectsVolume);
-				app.startGame();
-			}
-		});
+		for (TextButton button : buttons.values()) {
+			final String screenName = button.getName();
+			button.addListener(new ClickListener() {
+				public void clicked(InputEvent event, float x, float y) {
+					clickSound.play(effectsVolume);
+					app.changeScreen(screenName);
+				}
 
-		addButton("Options").addListener(new ChangeListener() {
+				public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					if (!isPressed()) {
+						selectSound.play(effectsVolume);
+					}
+				}
 
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				clickSound.play(effectsVolume);
-			}
-		});
-
-		addButton("About").addListener(new ChangeListener() {
-
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				clickSound.play(effectsVolume);
-			}
-		});
-
-		addButton("Exit").addListener(new ChangeListener() {
-
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				clickSound.play(effectsVolume);
-				dispose();
-				System.exit(0);
-			}
-		});
+				public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				}
+			});
+		}
 	}
 
 	@Override
@@ -144,6 +136,7 @@ public class MainMenu implements Screen {
 		stage.dispose();
 		logo.dispose();
 		music.dispose();
+		selectSound.dispose();
 		clickSound.dispose();
 	}
 
@@ -185,6 +178,7 @@ public class MainMenu implements Screen {
 
 	public TextButton addButton(String text) {
 		TextButton button = new TextButton(text, skin);
+		button.setName(text);
 		table.add(button).spaceBottom(spaceBetweenButtons);
 		table.row();
 		buttons.put(text, button);
