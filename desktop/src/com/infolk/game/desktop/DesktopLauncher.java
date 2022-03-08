@@ -13,6 +13,8 @@ public class DesktopLauncher {
 		config.title = "Scheiss Zelda like game v.069";
 		config.width = 1920;
 		config.height = 1080;
+		config.x = -1;
+		config.y = -1;
 		new LwjglApplication(new App(), config);
 	}
 }
