@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -42,6 +43,10 @@ public class MainMenu implements Screen {
 
 	private int spaceBetweenButtons = 120;
 
+	private float musicVolume = 0.1f, effectsVolume = 1f;
+	private Music music;
+	private Sound clickSound;
+
 	public MainMenu(final App app) {
 		setupFont();
 		setupSkinAndStyles();
@@ -57,14 +62,18 @@ public class MainMenu implements Screen {
 
 		buttons = new HashMap<String, TextButton>();
 
-		Music m = Gdx.audio.newMusic(Gdx.files.internal("music/cyberpunk.mp3"));
-		m.setLooping(true);
-		m.play();
+		music = Gdx.audio.newMusic(Gdx.files.internal("music/cyberpunk.mp3"));
+		music.setLooping(true);
+		music.play();
+		setMusicVolume(musicVolume);
+
+		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/click.mp3"));
 
 		addButton("Start").addListener(new ChangeListener() {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
+				clickSound.play(effectsVolume);
 				app.startGame();
 			}
 		});
@@ -73,7 +82,7 @@ public class MainMenu implements Screen {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-
+				clickSound.play(effectsVolume);
 			}
 		});
 
@@ -81,7 +90,7 @@ public class MainMenu implements Screen {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-
+				clickSound.play(effectsVolume);
 			}
 		});
 
@@ -89,6 +98,7 @@ public class MainMenu implements Screen {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
+				clickSound.play(effectsVolume);
 				dispose();
 				System.exit(0);
 			}
@@ -133,6 +143,8 @@ public class MainMenu implements Screen {
 		buttonFont.dispose();
 		stage.dispose();
 		logo.dispose();
+		music.dispose();
+		clickSound.dispose();
 	}
 
 	public void setupFont() {
@@ -177,5 +189,14 @@ public class MainMenu implements Screen {
 		table.row();
 		buttons.put(text, button);
 		return button;
+	}
+
+	public void setMusicVolume(float volume) {
+		musicVolume = volume;
+		music.setVolume(volume);
+	}
+
+	public void setEffectsVolume(float volume) {
+		effectsVolume = volume;
 	}
 }
