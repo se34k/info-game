@@ -1,0 +1,2 @@
+com/infolk/game/desktop/DesktopLauncher.java
+ com.infolk.game.desktop.DesktopLauncher
