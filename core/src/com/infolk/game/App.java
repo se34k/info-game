@@ -1,6 +1,7 @@
 package com.infolk.game;
 
 import com.badlogic.gdx.Game;
+import com.infolk.game.screens.GameScreen;
 import com.infolk.game.screens.MainMenu;
 
 public class App extends Game {
@@ -12,10 +13,6 @@ public class App extends Game {
 
 	public MainMenu menu;
 
-	public void startGame() {
-		this.setScreen(menu);
-	}
-
 	@Override
 	public void create() {
 		manager = new GameManager();
@@ -26,7 +23,7 @@ public class App extends Game {
 	public void changeScreen(String screenName) {
 		switch (screenName) {
 			case "Start":
-				startGame();
+				this.setScreen(new GameScreen(this));
 				break;
 			case "Exit":
 				menu.dispose();

@@ -127,7 +127,7 @@ public class MainMenu implements Screen {
 
 	@Override
 	public void hide() {
-
+		stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(3f)));
 	}
 
 	@Override
