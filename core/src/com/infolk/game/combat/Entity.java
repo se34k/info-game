@@ -16,6 +16,25 @@ public class Entity {
         this.sprite = sprite;
         this.sprite.setX(100f);
         this.sprite.setY(100f);
+    }
 
+    public void move(float x, float y) {
+        this.sprite.setPosition(getX() + x, getY() + y);
+    }
+
+    public void moveX(float x) {
+        move(x, 0);
+    }
+
+    public void moveY(float y) {
+        move(0, y);
+    }
+
+    public float getX() {
+        return this.sprite.getX();
+    }
+
+    public float getY() {
+        return this.sprite.getY();
     }
 }
