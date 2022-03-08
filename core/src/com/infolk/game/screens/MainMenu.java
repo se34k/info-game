@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -56,6 +57,10 @@ public class MainMenu implements Screen {
 		
 		buttons = new HashMap<String, TextButton>();
 		
+		Music m = Gdx.audio.newMusic(Gdx.files.internal("music/cyberpunk.mp3"));
+		m.setLooping(true);
+		m.play();
+		
 		addButton("Start").addListener(new ChangeListener() {
 
 			@Override
@@ -74,7 +79,7 @@ public class MainMenu implements Screen {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				app.startGame();
+				// app.startGame();
 			}});
 		
 		addButton("Exit").addListener(new ChangeListener() {
@@ -151,7 +156,7 @@ public class MainMenu implements Screen {
 		int width = (int)(App.SCREEN_WIDTH * 0.9);
 		int height = (int)(width * 0.075);
 		Image logoImage = new Image(new TextureRegion(logo));
-		table.add(logoImage).width((float)width).height(height).spaceBottom(10);
+		table.add(logoImage).width((float) width).height(height).spaceBottom(10);
 		table.row();
 		
 		Label.LabelStyle labelStyle = new Label.LabelStyle();
