@@ -34,7 +34,7 @@ public class App extends Game {
 				break;
 
 			default:
-				System.out.println("Remind Mihai to implement this...");
+				System.out.println("Remind Mihai to implement the " + screenName + " screen...");
 		}
 	}
 
