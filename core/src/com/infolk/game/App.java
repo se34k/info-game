@@ -4,6 +4,9 @@ import com.badlogic.gdx.Game;
 import com.infolk.game.screens.GameScreen;
 import com.infolk.game.screens.MainMenu;
 
+/**
+ * @author Mihai
+ */
 public class App extends Game {
 
 	public static final int SCREEN_WIDTH = 1920;
