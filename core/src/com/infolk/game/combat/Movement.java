@@ -17,6 +17,10 @@ public class Movement {
         KEY_DOWN = Input.Keys.S;
     }
 
+    public static float distanceBetween(Entity entity1, Entity entity2) {
+        return entity1.distanceTo(entity2);
+    }
+
     public void processKeys(Entity entity, float delta) {
         if(Gdx.input.isKeyPressed(KEY_LEFT)) {
             entity.moveX(entity.velocity * delta);
