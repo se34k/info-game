@@ -22,17 +22,17 @@ public class Movement {
     }
 
     public void processKeys(Entity entity, float delta) {
-        if(Gdx.input.isKeyPressed(KEY_LEFT)) {
+        if (Gdx.input.isKeyPressed(KEY_LEFT)) {
+            entity.moveX(-entity.velocity * delta);
+        }
+        if (Gdx.input.isKeyPressed(KEY_RIGHT)) {
             entity.moveX(entity.velocity * delta);
         }
-        if(Gdx.input.isKeyPressed(KEY_RIGHT)) {
-            entity.moveX(entity.velocity * delta);
-        }
-        if(Gdx.input.isKeyPressed(KEY_UP)) {
+        if (Gdx.input.isKeyPressed(KEY_UP)) {
             entity.moveY(entity.velocity * delta);
         }
-        if(Gdx.input.isKeyPressed(KEY_DOWN)) {
-            entity.moveY(entity.velocity * delta);
+        if (Gdx.input.isKeyPressed(KEY_DOWN)) {
+            entity.moveY(-entity.velocity * delta);
         }
     }
 }
