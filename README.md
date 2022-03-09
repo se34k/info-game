@@ -1,5 +1,5 @@
+[![Java CI with Gradle](https://github.com/EveryLimit/info-game/actions/workflows/gradle.yml/badge.svg)](https://github.com/EveryLimit/info-game/actions/workflows/gradle.yml)
 # info-game
-
 Welcome to our glorious repository of the greatest AAAA title ever released - Scheiss Zelda Like Game v.0.69.
 
 ## How to install
