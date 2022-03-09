@@ -45,7 +45,8 @@ public class MainMenu implements Screen {
 
 	private int spaceBetweenButtons = 120;
 
-	private float musicVolume = 0.05f, effectsVolume = 0.5f;
+	private float musicVolume = 0.05f;
+	private float effectsVolume = 0.5f;
 	private Music music;
 	private Sound selectSound;
 	private Sound clickSound;
