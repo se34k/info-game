@@ -11,7 +11,7 @@ import com.infolk.game.App;
 public class DesktopLauncher {
 	public static void main(String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "Janitor Tales (formerly Scheiss Zelda like game v.069)";
+		config.title = "Janitor Tales";
 		config.width = 1920;
 		config.height = 1080;
 		config.x = -1;

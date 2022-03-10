@@ -26,3 +26,5 @@ hs_err_pid*
 *.lock
 .gradle/*
 gradle/*
+
+core/build/classes/*
