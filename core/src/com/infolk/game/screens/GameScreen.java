@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.infolk.game.App;
 import com.infolk.game.combat.Entity;
 import com.infolk.game.combat.Movement;
+import com.infolk.game.core.GameCore;
 
 /**
  * @author Mihai
@@ -20,6 +21,7 @@ import com.infolk.game.combat.Movement;
 public class GameScreen implements Screen {
 
 	private Stage stage;
+	private GameCore gc;
 
 	// Only Testing //
 		ShapeRenderer renderer;
@@ -41,6 +43,10 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		update(delta);
+	}
+
+	private void update(float delta) {
 		ScreenUtils.clear(Color.BLACK);
 		stage.act(delta);
 		stage.draw();
@@ -51,7 +57,6 @@ public class GameScreen implements Screen {
 			testPlayer1.sprite.draw(batch);
 			batch.end();
 		//
-
 	}
 
 	@Override

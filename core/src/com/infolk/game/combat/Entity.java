@@ -2,6 +2,7 @@ package com.infolk.game.combat;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+//TODO: Make abstract
 public class Entity implements RuntimeHook {
     public float velocity = 100.0f;
     public Sprite sprite;

@@ -2,6 +2,8 @@ package com.infolk.game.screens;
 
 import java.util.HashMap;
 
+import javax.swing.text.html.parser.Entity;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -56,7 +58,7 @@ public class MainMenu implements Screen {
 		setupSkinAndStyles();
 
 		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
+		// Gdx.input.setInputProcessor(stage);
 
 		table = new Table();
 		table.setFillParent(true);
@@ -64,7 +66,7 @@ public class MainMenu implements Screen {
 
 		setupLogoAndDescription();
 
-		buttons = new HashMap<String, TextButton>();
+		buttons = new HashMap<>();
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("music/cyberpunk.mp3"));
 		music.setLooping(true);
