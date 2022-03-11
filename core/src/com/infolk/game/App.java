@@ -1,35 +1,56 @@
 package com.infolk.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.infolk.game.screens.AboutScreen;
 import com.infolk.game.screens.GameScreen;
-import com.infolk.game.screens.MainMenu;
+import com.infolk.game.screens.MainMenuScreen;
+import com.infolk.game.screens.OptionsScreen;
 
 /**
  * @author Mihai
  */
 public class App extends Game {
 
-	public static final int SCREEN_WIDTH = 1920;
-	public static final int SCREEN_HEIGHT = 1080;
-
 	public GameManager manager;
 
-	public MainMenu menu;
+	public static float MUSIC_VOLUME = 0.05f;
+	public static float EFFECTS_VOLUME = 0.5f;
+
+	public Music music;
 
 	@Override
 	public void create() {
-		manager = new GameManager();
-		menu = new MainMenu(this);
-		this.setScreen(menu);
+		changeScreen("Menu");
+
+		music = Gdx.audio.newMusic(Gdx.files.internal("music/cyberpunk.mp3"));
+		music.setLooping(true);
+		music.play();
+		music.setVolume(App.MUSIC_VOLUME);
 	}
 
 	public void changeScreen(String screenName) {
 		switch (screenName) {
+			case "Menu":
+				this.setScreen(new MainMenuScreen(this));
+				break;
+
 			case "Start":
+				music.stop();
 				this.setScreen(new GameScreen(this));
 				break;
+
+			case "About":
+				this.setScreen(new AboutScreen(this));
+				break;
+
+			case "Options":
+				this.setScreen(new OptionsScreen(this));
+				break;
+
 			case "Exit":
-				menu.dispose();
+				saveProgress();
 				System.exit(0);
 				break;
 
@@ -45,4 +66,12 @@ public class App extends Game {
 	public void dispose() {
 	}
 
+	public void saveProgress() {
+
+	}
+
+	public void setVolume(float volume) {
+		MUSIC_VOLUME = volume;
+		music.setVolume(volume);
+	}
 }
