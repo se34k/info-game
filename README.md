@@ -15,3 +15,5 @@ Welcome to our glorious repository of the greatest AAAA title ever released - Sc
 
 ## How to contribute
 Create a new branch for your own changes and commit to it, open a pull request when you think you're done with a feature.
+
+![main-qimg-337c3f77fafac8873efd320893b2138e](https://user-images.githubusercontent.com/47299581/157668895-1a2c367a-77d5-4b17-8437-c656f027c38c.jpg)
