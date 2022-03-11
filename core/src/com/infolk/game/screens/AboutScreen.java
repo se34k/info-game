@@ -1,50 +1,36 @@
 package com.infolk.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.infolk.game.App;
 
 /**
  * @author Mihai
  */
-public class AboutScreen implements Screen {
+public class AboutScreen extends DefaultScreen {
 
-    private Stage stage;
+    public AboutScreen(final App app) {
+        super();
 
-    private BitmapFont smallFont;
-    private BitmapFont mediumFont;
+        int width = (int) (Gdx.graphics.getWidth() * 0.6);
+        int height = (int) (width * 0.2);
+        addImage("gui/about.png", width, height, 0, 10);
+        addText("Remind Mihai to implement this...", 0, 100);
 
-    public AboutScreen(App app) {
-        smallFont = new BitmapFont(Gdx.files.internal("font/font.fnt"));
-        mediumFont = new BitmapFont(Gdx.files.internal("font/font.fnt"));
-        mediumFont.getData().setScale(1.5f);
+        addButton("Back", 100, 100).addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                app.changeScreen("Menu");
+            }
 
-        Table table = new Table();
-        table.setFillParent(true);
-        stage.addActor(table);
-    }
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 
-    @Override
-    public void show() {
-        stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3f)));
-    }
+            }
 
-    @Override
-    public void render(float delta) {
-        ScreenUtils.clear(Color.BLACK);
-        stage.act(delta);
-        stage.draw();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+            }
+        });
     }
 
     @Override
@@ -58,13 +44,11 @@ public class AboutScreen implements Screen {
     }
 
     @Override
-    public void hide() {
-        stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(3f)));
+    public void dispose() {
+
     }
 
     @Override
-    public void dispose() {
-        stage.dispose();
+    public void draw() {
     }
-
 }

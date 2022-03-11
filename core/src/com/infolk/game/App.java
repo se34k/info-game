@@ -1,6 +1,8 @@
 package com.infolk.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.infolk.game.screens.AboutScreen;
 import com.infolk.game.screens.GameScreen;
 import com.infolk.game.screens.MainMenuScreen;
@@ -16,18 +18,26 @@ public class App extends Game {
 	public static float MUSIC_VOLUME = 0.05f;
 	public static float EFFECTS_VOLUME = 0.5f;
 
-	public MainMenuScreen menu;
+	public Music music;
 
 	@Override
 	public void create() {
-		manager = new GameManager();
-		menu = new MainMenuScreen(this);
-		this.setScreen(menu);
+		changeScreen("Menu");
+
+		music = Gdx.audio.newMusic(Gdx.files.internal("music/cyberpunk.mp3"));
+		music.setLooping(true);
+		music.play();
+		music.setVolume(App.MUSIC_VOLUME);
 	}
 
 	public void changeScreen(String screenName) {
 		switch (screenName) {
+			case "Menu":
+				this.setScreen(new MainMenuScreen(this));
+				break;
+
 			case "Start":
+				music.stop();
 				this.setScreen(new GameScreen(this));
 				break;
 
@@ -41,7 +51,6 @@ public class App extends Game {
 
 			case "Exit":
 				saveProgress();
-				menu.dispose();
 				System.exit(0);
 				break;
 
@@ -61,4 +70,8 @@ public class App extends Game {
 
 	}
 
+	public void setVolume(float volume) {
+		MUSIC_VOLUME = volume;
+		music.setVolume(volume);
+	}
 }
