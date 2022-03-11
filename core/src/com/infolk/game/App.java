@@ -1,8 +1,10 @@
 package com.infolk.game;
 
 import com.badlogic.gdx.Game;
+import com.infolk.game.screens.AboutScreen;
 import com.infolk.game.screens.GameScreen;
-import com.infolk.game.screens.MainMenu;
+import com.infolk.game.screens.MainMenuScreen;
+import com.infolk.game.screens.OptionsScreen;
 
 /**
  * @author Mihai
@@ -11,12 +13,15 @@ public class App extends Game {
 
 	public GameManager manager;
 
-	public MainMenu menu;
+	public static float MUSIC_VOLUME = 0.05f;
+	public static float EFFECTS_VOLUME = 0.5f;
+
+	public MainMenuScreen menu;
 
 	@Override
 	public void create() {
 		manager = new GameManager();
-		menu = new MainMenu(this);
+		menu = new MainMenuScreen(this);
 		this.setScreen(menu);
 	}
 
@@ -25,7 +30,17 @@ public class App extends Game {
 			case "Start":
 				this.setScreen(new GameScreen(this));
 				break;
+
+			case "About":
+				this.setScreen(new AboutScreen(this));
+				break;
+
+			case "Options":
+				this.setScreen(new OptionsScreen(this));
+				break;
+
 			case "Exit":
+				saveProgress();
 				menu.dispose();
 				System.exit(0);
 				break;
@@ -40,6 +55,10 @@ public class App extends Game {
 	}
 
 	public void dispose() {
+	}
+
+	public void saveProgress() {
+
 	}
 
 }
