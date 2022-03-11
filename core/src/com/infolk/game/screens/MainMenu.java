@@ -164,7 +164,7 @@ public class MainMenu implements Screen {
 
 	public void setupLogoAndDescription() {
 		logo = new Texture(Gdx.files.internal("gui/logo.png"));
-		int width = (int) (App.SCREEN_WIDTH * 0.9);
+		int width = (int) (Gdx.graphics.getWidth() * 0.9);
 		int height = (int) (width * 0.075);
 		Image logoImage = new Image(new TextureRegion(logo));
 		table.add(logoImage).width((float) width).height(height).spaceBottom(10);

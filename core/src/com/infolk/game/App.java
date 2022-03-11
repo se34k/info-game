@@ -9,9 +9,6 @@ import com.infolk.game.screens.MainMenu;
  */
 public class App extends Game {
 
-	public static final int SCREEN_WIDTH = 1920;
-	public static final int SCREEN_HEIGHT = 1080;
-
 	public GameManager manager;
 
 	public MainMenu menu;
