@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.infolk.game.App;
+import com.infolk.game.App.ScreenState;
 
 /**
  * @author Mihai
@@ -18,12 +19,12 @@ public class OptionsScreen extends DefaultScreen {
 
         int width = (int) (Gdx.graphics.getWidth() * 0.6);
         int height = (int) (width * 0.2);
-        addImage("gui/options.png", width, height, 0, 10);
-        addText("Remind Mihai to implement this...", 0, 50);
+        addImage(mainTable, "gui/options.png", width, height, 0, 10, true);
+        addText(mainTable, "Remind Mihai to implement this...", 0, 50, true);
 
-        addText("Music Volume:", 100, 20);
+        addText(mainTable, "Music Volume:", 100, 20, true);
 
-        final Slider musicSlider = addSlider(0, 1, 0.01f, 0, 25);
+        final Slider musicSlider = addSlider(mainTable, 0, 1, 0.01f, 0, 25, true);
         musicSlider.setVisualPercent(App.MUSIC_VOLUME);
         musicSlider.addListener(new ChangeListener() {
             @Override
@@ -40,9 +41,9 @@ public class OptionsScreen extends DefaultScreen {
             }
         });
 
-        addText("Effects Volume:", 100, 20);
+        addText(mainTable, "Effects Volume:", 100, 20, true);
 
-        final Slider effectsSlider = addSlider(0, 1, 0.01f, 0, 50);
+        final Slider effectsSlider = addSlider(mainTable, 0, 1, 0.01f, 0, 50, true);
         effectsSlider.setVisualPercent(App.EFFECTS_VOLUME);
         effectsSlider.addListener(new ChangeListener() {
             @Override
@@ -51,38 +52,26 @@ public class OptionsScreen extends DefaultScreen {
             }
         });
 
-        addButton("Back", 100, 100).addListener(new ClickListener() {
+        addButton(mainTable, "Back", 100, 100, true).addListener(new ClickListener() {
+            @Override
             public void clicked(InputEvent event, float x, float y) {
-                app.changeScreen("Menu");
-            }
-
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-
-            }
-
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                super.clicked(event, x, y);
+                app.changeScreen(ScreenState.MENU);
             }
         });
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
-
-    @Override
     public void draw() {
 
+    }
+
+    @Override
+    public void cleanUp() {
+    }
+
+    @Override
+    public void update(float delta) {
     }
 
 }
