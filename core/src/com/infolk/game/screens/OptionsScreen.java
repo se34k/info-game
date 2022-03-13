@@ -13,8 +13,6 @@ import com.infolk.game.App;
  */
 public class OptionsScreen extends DefaultScreen {
 
-    private float musicPosition;
-
     public OptionsScreen(final App app) {
         super();
 
@@ -32,11 +30,11 @@ public class OptionsScreen extends DefaultScreen {
             public void changed(ChangeEvent event, Actor actor) {
                 if (!app.music.isPlaying()) {
                     app.music.play();
-                    app.music.setPosition(musicPosition);
+                    app.music.setPosition(app.musicPosition);
                 }
                 app.setVolume(musicSlider.getValue());
                 if (musicSlider.getValue() == 0) {
-                    musicPosition = app.music.getPosition();
+                    app.musicPosition = app.music.getPosition();
                     app.music.stop();
                 }
             }

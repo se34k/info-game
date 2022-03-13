@@ -19,6 +19,7 @@ public class App extends Game {
 	public static float EFFECTS_VOLUME = 0.5f;
 
 	public Music music;
+	public float musicPosition;
 
 	@Override
 	public void create() {
