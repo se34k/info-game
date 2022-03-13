@@ -1,7 +1,6 @@
 package com.infolk.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -17,16 +16,18 @@ import com.infolk.game.combat.Movement;
 /**
  * @author Mihai
  */
-public class GameScreen implements Screen {
+public class GameScreen extends DefaultScreen {
 
 	private Stage stage;
 
 	// Only Testing //
-		ShapeRenderer renderer;
-		Entity testPlayer1 = new Entity("Test1", 20, new Sprite(new Texture(Gdx.files.internal("core\\assets\\sprites\\janitor_0.png"))));
-		Entity testPlayer2 = new Entity("Test2", 20, new Sprite(new Texture(Gdx.files.internal("core\\assets\\sprites\\janitor_0.png"))));
-		Movement move = new Movement();
-		SpriteBatch batch = new SpriteBatch();
+	ShapeRenderer renderer;
+	Entity testPlayer1 = new Entity("Test1", 20,
+			new Sprite(new Texture(Gdx.files.internal("core\\assets\\sprites\\janitor_0.png"))));
+	Entity testPlayer2 = new Entity("Test2", 20,
+			new Sprite(new Texture(Gdx.files.internal("core\\assets\\sprites\\janitor_0.png"))));
+	Movement move = new Movement();
+	SpriteBatch batch = new SpriteBatch();
 	//
 
 	public GameScreen(App app) {
@@ -46,17 +47,12 @@ public class GameScreen implements Screen {
 		stage.draw();
 
 		// Only Testing
-			move.processKeys(testPlayer1, delta);
-			batch.begin();
-			testPlayer1.sprite.draw(batch);
-			batch.end();
+		move.processKeys(testPlayer1, delta);
+		batch.begin();
+		testPlayer1.sprite.draw(batch);
+		batch.end();
 		//
 
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		stage.getViewport().update(width, height, true);
 	}
 
 	@Override
@@ -70,12 +66,12 @@ public class GameScreen implements Screen {
 	}
 
 	@Override
-	public void hide() {
-		stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(3f)));
+	public void dispose() {
+
 	}
 
 	@Override
-	public void dispose() {
+	public void draw() {
 
 	}
 

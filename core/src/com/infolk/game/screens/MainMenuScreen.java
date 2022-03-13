@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.infolk.game.App;
@@ -51,11 +50,6 @@ public class MainMenuScreen extends DefaultScreen {
 	}
 
 	@Override
-	public void show() {
-		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3f)));
-	}
-
-	@Override
 	public void pause() {
 
 	}
@@ -63,11 +57,6 @@ public class MainMenuScreen extends DefaultScreen {
 	@Override
 	public void resume() {
 
-	}
-
-	@Override
-	public void hide() {
-		stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(3f)));
 	}
 
 	@Override
@@ -83,7 +72,4 @@ public class MainMenuScreen extends DefaultScreen {
 
 	}
 
-	public void setVolume(float volume) {
-		music.setVolume(volume);
-	}
 }
