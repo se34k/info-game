@@ -1,82 +1,55 @@
 package com.infolk.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.infolk.game.App;
+import com.infolk.game.App.ScreenState;
 import com.infolk.game.combat.Entity;
 import com.infolk.game.combat.Movement;
 
 /**
  * @author Mihai
  */
-public class GameScreen implements Screen {
+public class GameScreen extends DefaultScreen {
 
-	private Stage stage;
+	Entity player;
+	Movement move;
 
-	// Only Testing //
-		ShapeRenderer renderer;
-		Entity testPlayer1 = new Entity("Test1", 20, new Sprite(new Texture(Gdx.files.internal("core\\assets\\sprites\\janitor_0.png"))));
-		Entity testPlayer2 = new Entity("Test2", 20, new Sprite(new Texture(Gdx.files.internal("core\\assets\\sprites\\janitor_0.png"))));
-		Movement move = new Movement();
-		SpriteBatch batch = new SpriteBatch();
-	//
+	public GameScreen(final App app) {
+		super();
+		Sprite playerSprite = new Sprite(new Texture(Gdx.files.internal("sprites/janitor_0.png")));
+		player = new Entity("Player", 20, new Sprite(playerSprite));
+		move = new Movement();
 
-	public GameScreen(App app) {
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
+		addButton(mainTable, "||", 0, 0, false).addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				app.changeScreen(ScreenState.INVENTORY);
+			}
+		});
+
+		buttons.get("||").setTransform(true);
+		buttons.get("||").setScale(0.2f, 1);
+
+		mainTable.top().left();
 	}
 
 	@Override
-	public void show() {
-		stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3f)));
+	public void draw() {
+		player.sprite.draw(batch);
 	}
 
 	@Override
-	public void render(float delta) {
-		ScreenUtils.clear(Color.BLACK);
-		stage.act(delta);
-		stage.draw();
-
-		// Only Testing
-			move.processKeys(testPlayer1, delta);
-			batch.begin();
-			testPlayer1.sprite.draw(batch);
-			batch.end();
-		//
-
+	public void cleanUp() {
+		batch.dispose();
 	}
 
 	@Override
-	public void resize(int width, int height) {
-		stage.getViewport().update(width, height, true);
+	public void update(float delta) {
+		move.processKeys(player, delta);
 	}
-
-	@Override
-	public void pause() {
-
-	}
-
-	@Override
-	public void resume() {
-
-	}
-
-	@Override
-	public void hide() {
-		stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(3f)));
-	}
-
-	@Override
-	public void dispose() {
-
-	}
-
 }
