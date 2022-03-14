@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.infolk.game.screens.AboutScreen;
 import com.infolk.game.screens.GameScreen;
+import com.infolk.game.screens.InventoryScreen;
 import com.infolk.game.screens.MainMenuScreen;
 import com.infolk.game.screens.OptionsScreen;
 
@@ -13,16 +14,26 @@ import com.infolk.game.screens.OptionsScreen;
  */
 public class App extends Game {
 
+	public static enum ScreenState {
+		MENU,
+		ABOUT,
+		OPTIONS,
+		START,
+		EXIT,
+		INVENTORY
+	}
+
 	public GameManager manager;
 
 	public static float MUSIC_VOLUME = 0.05f;
 	public static float EFFECTS_VOLUME = 0.5f;
 
 	public Music music;
+	public float musicPosition;
 
 	@Override
 	public void create() {
-		changeScreen("Menu");
+		changeScreen(ScreenState.MENU);
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("music/cyberpunk.mp3"));
 		music.setLooping(true);
@@ -30,32 +41,36 @@ public class App extends Game {
 		music.setVolume(App.MUSIC_VOLUME);
 	}
 
-	public void changeScreen(String screenName) {
-		switch (screenName) {
-			case "Menu":
+	public void changeScreen(ScreenState state) {
+		switch (state) {
+			case MENU:
 				this.setScreen(new MainMenuScreen(this));
 				break;
 
-			case "Start":
+			case START:
 				music.stop();
 				this.setScreen(new GameScreen(this));
 				break;
 
-			case "About":
+			case ABOUT:
 				this.setScreen(new AboutScreen(this));
 				break;
 
-			case "Options":
+			case OPTIONS:
 				this.setScreen(new OptionsScreen(this));
 				break;
 
-			case "Exit":
+			case EXIT:
 				saveProgress();
 				System.exit(0);
 				break;
 
+			case INVENTORY:
+				this.setScreen(new InventoryScreen(this));
+				break;
+
 			default:
-				System.out.println("Remind Mihai to implement the " + screenName + " screen...");
+				System.out.println("Remind Mihai to implement the " + state.toString() + " screen...");
 		}
 	}
 

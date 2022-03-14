@@ -1,6 +1,6 @@
 [![Java CI with Gradle](https://github.com/EveryLimit/info-game/actions/workflows/gradle.yml/badge.svg)](https://github.com/EveryLimit/info-game/actions/workflows/gradle.yml)
 # info-game
-Welcome to our glorious repository of the greatest AAAA title ever released - Scheiss Zelda Like Game v.0.69.
+Welcome to our glorious repository of the greatest AAAA title ever released - Janitor Tales.
 
 ## How to install
 1. Download [VS Code](https://code.visualstudio.com/Download)
