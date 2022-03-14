@@ -2,7 +2,8 @@ package com.infolk.game.combat;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class Entity {
+//TODO: Make abstract
+public class Entity implements RuntimeHook {
     public float velocity = 100.0f;
     public Sprite sprite;
 
@@ -16,6 +17,12 @@ public class Entity {
         this.sprite = sprite;
         this.sprite.setX(100f);
         this.sprite.setY(100f);
+    }
+
+    public void handleLoopIteration() {
+        if (velocity > 0) {
+            velocity--;
+        }
     }
 
     public String getName() {
