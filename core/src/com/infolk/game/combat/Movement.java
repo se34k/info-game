@@ -12,7 +12,7 @@ public class Movement {
     private int KEY_DOWN;
     private int KEY_DASH;
 
-    private static int SPEED = 100;
+    private static int SPEED = 150;
 
     public Movement() {
         KEY_LEFT = Input.Keys.A;
