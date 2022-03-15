@@ -1,21 +1,42 @@
 package com.infolk.game.combat;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
 
-public class Entity {
-    public float velocity = 100.0f;
+public abstract class Entity {
+    public Vector2 velocity;
     public Sprite sprite;
 
     private String name;
     private int hp;
 
-    public Entity(String name, int hp, Sprite sprite) {
+    private Circle hitbox;
+
+    protected Entity(String name, int hp, Sprite sprite) {
         this.name = name;
         this.hp = hp;
+
+        //Initialize vector with 0, 0
+        velocity = new Vector2(0, 0);
 
         this.sprite = sprite;
         this.sprite.setX(100f);
         this.sprite.setY(100f);
+
+        hitbox = new Circle(getX(), getY(), 10);
+    }
+
+    public void setVelocity(Vector2 velocity) {
+        this.velocity = velocity;
+    }
+
+    public Circle getHitbox() {
+        return hitbox;
+    }
+
+    public boolean overlaps(Entity entity) {
+        return hitbox.overlaps(entity.getHitbox());
     }
 
     public String getName() {
@@ -32,6 +53,10 @@ public class Entity {
 
     public void changeHP(int change) {
         setHP(hp + change);
+    }
+
+    public void move(float delta) {
+        this.move(velocity.x * delta, velocity.y * delta);
     }
 
     public void move(float x, float y) {
