@@ -9,7 +9,7 @@ import com.infolk.game.App;
 import com.infolk.game.App.ScreenState;
 import com.infolk.game.combat.Entity;
 import com.infolk.game.combat.Movement;
-import com.infolk.game.core.GameCore;
+import com.infolk.game.combat.Playable;
 
 /**
  * @author Mihai
@@ -22,7 +22,7 @@ public class GameScreen extends DefaultScreen {
 	public GameScreen(final App app) {
 		super();
 		Sprite playerSprite = new Sprite(new Texture(Gdx.files.internal("sprites/janitor_0.png")));
-		player = new Entity("Player", 20, new Sprite(playerSprite));
+		player = new Playable("Player", 20, new Sprite(playerSprite));
 		move = new Movement();
     
 		addButton(mainTable, "||", 0, 0, false).addListener(new ClickListener() {
@@ -52,5 +52,6 @@ public class GameScreen extends DefaultScreen {
 	@Override
 	public void update(float delta) {
 		move.processKeys(player, delta);
+		player.move(delta);
 	}
 }

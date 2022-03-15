@@ -2,6 +2,7 @@ package com.infolk.game.combat;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
 
 public class Movement {
 
@@ -9,6 +10,8 @@ public class Movement {
     private int KEY_UP;
     private int KEY_RIGHT;
     private int KEY_DOWN;
+
+    private static int SPEED = 100;
 
     public Movement() {
         KEY_LEFT = Input.Keys.A;
@@ -22,17 +25,22 @@ public class Movement {
     }
 
     public void processKeys(Entity entity, float delta) {
+        int xSpeed = 0;
+        int ySpeed = 0;
+
         if (Gdx.input.isKeyPressed(KEY_LEFT)) {
-            entity.moveX(-entity.velocity * delta);
+            xSpeed -= SPEED;
         }
         if (Gdx.input.isKeyPressed(KEY_RIGHT)) {
-            entity.moveX(entity.velocity * delta);
+            xSpeed += SPEED;
         }
         if (Gdx.input.isKeyPressed(KEY_UP)) {
-            entity.moveY(entity.velocity * delta);
+            ySpeed += SPEED;
         }
         if (Gdx.input.isKeyPressed(KEY_DOWN)) {
-            entity.moveY(-entity.velocity * delta);
+            ySpeed -= SPEED;
         }
+
+        entity.setVelocity(new Vector2(xSpeed, ySpeed));
     }
 }
