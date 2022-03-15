@@ -14,7 +14,7 @@ import com.infolk.game.screens.OptionsScreen;
  */
 public class App extends Game {
 
-	public static enum ScreenState {
+	public enum ScreenState {
 		MENU,
 		ABOUT,
 		OPTIONS,

@@ -15,6 +15,7 @@ public class InventoryScreen extends DefaultScreen {
         TextButton backBtn = addButton(mainTable, "Back", 0, 0, true);
 
         menuBtn.addListener(new ClickListener() {
+            @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 app.changeScreen(ScreenState.MENU);
@@ -22,6 +23,7 @@ public class InventoryScreen extends DefaultScreen {
         });
 
         backBtn.addListener(new ClickListener() {
+            @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 app.changeScreen(ScreenState.START);
@@ -36,7 +38,7 @@ public class InventoryScreen extends DefaultScreen {
 
     @Override
     public void cleanUp() {
-
+        
     }
 
     @Override

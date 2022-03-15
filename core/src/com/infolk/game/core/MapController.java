@@ -6,6 +6,9 @@ import com.infolk.game.combat.Entity;
 import com.infolk.game.combat.Movement;
 import com.infolk.game.combat.Playable;
 
+/**
+ * @author Sebastian
+ */
 public class MapController {
     private ArrayList<Playable> players;
     private ArrayList<Entity> entities;
@@ -17,6 +20,8 @@ public class MapController {
         entities = new ArrayList<>();
     
 		move = new Movement();
+
+        //TODO: Load map data according to mapId parameter
     }
 
     public void addEntity(Entity pEntity) {

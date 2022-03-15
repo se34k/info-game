@@ -19,6 +19,6 @@ public class GameManager {
     }
 
     public void discardStage() {
-        
+        //TODO: Implement discarding process
     }
 }

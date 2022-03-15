@@ -35,7 +35,7 @@ public abstract class DefaultScreen implements Screen {
 
     protected HashMap<String, TextButton> buttons;
 
-    public DefaultScreen() {
+    protected DefaultScreen() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
@@ -75,7 +75,6 @@ public abstract class DefaultScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
-
     }
 
     @Override
@@ -124,6 +123,7 @@ public abstract class DefaultScreen implements Screen {
         if (row)
             table.row();
         button.addListener(new ClickListener() {
+            @Override
             public void clicked(InputEvent event, float x, float y) {
                 clickSound.play(App.EFFECTS_VOLUME);
             }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
-    public Vector2 velocity;
+    private Vector2 velocity;
     public Sprite sprite;
 
     private String name;
