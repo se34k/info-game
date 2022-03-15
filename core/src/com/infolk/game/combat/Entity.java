@@ -1,7 +1,6 @@
 package com.infolk.game.combat;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -60,11 +59,19 @@ public abstract class Entity {
         factor.x = factor.x * (velocity.x > 0 ? -1 : velocity.x < 0 ? 1 : 0);
         factor.y = factor.y * (velocity.y > 0 ? -1 : velocity.y < 0 ? 1 : 0);
 
-        this.move(factor.x, factor.y);
+        move(factor.x, factor.y);
     }
 
     public void move(float delta) {
-        this.move(velocity.x * delta, velocity.y * delta);
+        move(velocity.x * delta, velocity.y * delta);
+    }
+
+    public void moveHoriz(float delta) {
+        move(velocity.x * delta, 0);
+    }
+
+    public void moveVert(float delta) {
+        move(0, velocity.y * delta);
     }
 
     public void move(float x, float y) {
@@ -72,8 +79,8 @@ public abstract class Entity {
     }
 
     public void setPosition(float x, float y) {
-        this.sprite.setPosition(x, y);
-        this.hitbox.setPosition(x, y);
+        sprite.setPosition(x, y);
+        hitbox.setPosition(x, y);
     }
 
     public void moveX(float x) {

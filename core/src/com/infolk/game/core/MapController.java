@@ -37,16 +37,23 @@ public class MapController {
     public void onLoop(float delta) {
         for (Playable player : players) {
             move.processKeys(player);
-            player.move(delta);
 
-            ArrayList<Entity> violators = collisions(player);
-            if (violators.size() > 0) {
-                for (Entity violator : violators) {
-                    int tryc = 0;
-                    while (player.overlaps(violator) && tryc < 1000) {
-                        player.moveBack(new Vector2(1, 1));
-                        tryc++;
-                    }
+            player.moveVert(delta);
+            correctCollisions(player, 0, 1);
+
+            player.moveHoriz(delta);
+            correctCollisions(player, 1, 0);
+        }
+    }
+
+    private void correctCollisions(Entity entity, int xFactor, int yFactor) {
+        ArrayList<Entity> violators = collisions(entity);
+        if (violators.size() > 0) {
+            for (Entity violator : violators) {
+                int tryc = 0;
+                while (entity.overlaps(violator) && tryc < 1000) {
+                    entity.moveBack(new Vector2(xFactor, yFactor));
+                    tryc++;
                 }
             }
         }
