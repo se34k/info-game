@@ -2,6 +2,7 @@ package com.infolk.game.combat;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
@@ -11,7 +12,7 @@ public abstract class Entity {
     private String name;
     private int hp;
 
-    private Circle hitbox;
+    private Rectangle hitbox;
 
     protected Entity(String name, int hp, Sprite sprite) {
         this.name = name;
@@ -24,14 +25,14 @@ public abstract class Entity {
         this.sprite.setX(100f);
         this.sprite.setY(100f);
 
-        hitbox = new Circle(getX(), getY(), 10);
+        hitbox = new Rectangle(getX(), getY(), this.sprite.getWidth(), this.sprite.getHeight());
     }
 
     public void setVelocity(Vector2 velocity) {
         this.velocity = velocity;
     }
 
-    public Circle getHitbox() {
+    public Rectangle getHitbox() {
         return hitbox;
     }
 
@@ -55,12 +56,24 @@ public abstract class Entity {
         setHP(hp + change);
     }
 
+    public void moveBack(Vector2 factor) {
+        factor.x = factor.x * (velocity.x > 0 ? -1 : velocity.x < 0 ? 1 : 0);
+        factor.y = factor.y * (velocity.y > 0 ? -1 : velocity.y < 0 ? 1 : 0);
+
+        this.move(factor.x, factor.y);
+    }
+
     public void move(float delta) {
         this.move(velocity.x * delta, velocity.y * delta);
     }
 
     public void move(float x, float y) {
-        this.sprite.setPosition(getX() + x, getY() + y);
+        setPosition(getX() + x, getY() + y);
+    }
+
+    public void setPosition(float x, float y) {
+        this.sprite.setPosition(x, y);
+        this.hitbox.setPosition(x, y);
     }
 
     public void moveX(float x) {
