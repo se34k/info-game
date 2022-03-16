@@ -56,8 +56,9 @@ public class GameScreen extends DefaultScreen {
 
 	@Override
 	public void draw() {
-		player.sprite.draw(batch);
-		obstacle.sprite.draw(batch);
+		if (mapController != null) {
+			mapController.draw(batch);
+		}
 	}
 
 	@Override

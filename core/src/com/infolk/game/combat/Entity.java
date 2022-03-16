@@ -1,6 +1,7 @@
 package com.infolk.game.combat;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -101,6 +102,10 @@ public abstract class Entity {
 
     public float[] getPos() {
         return new float[] { getX(), getY() };
+    }
+
+    public void draw(SpriteBatch batch) {
+        sprite.draw(batch);
     }
 
     /**

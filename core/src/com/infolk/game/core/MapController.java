@@ -2,6 +2,7 @@ package com.infolk.game.core;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.infolk.game.combat.Entity;
 import com.infolk.game.combat.Movement;
@@ -71,7 +72,9 @@ public class MapController {
         return violators;
     }
 
-    public void draw() {
-        //TODO: Implement this and take it out of GameScreen
+    public void draw(SpriteBatch batch) {
+        for (Entity entity : entities) {
+            entity.draw(batch);
+        }
     }
 }
