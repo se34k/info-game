@@ -10,6 +10,7 @@ import com.infolk.game.App.ScreenState;
 import com.infolk.game.combat.NPC;
 import com.infolk.game.combat.Playable;
 import com.infolk.game.core.MapController;
+import com.infolk.game.screens.components.HealthBar;
 
 /**
  * @author Mihai
@@ -18,6 +19,8 @@ public class GameScreen extends DefaultScreen {
 
 	private Playable player;
 	private NPC obstacle;
+
+	private HealthBar bar;
 
 	private MapController mapController;
 
@@ -35,6 +38,13 @@ public class GameScreen extends DefaultScreen {
 		mainTable.top().left();
 
 		testInit();
+
+		float width = 500;
+		float height = 50;
+		float x = 110;
+		float y = Gdx.graphics.getHeight() - height * 1.3f;
+
+		bar = new HealthBar(x, y, width, height, 5, 10);
 	}
 
 	private void testInit() {
@@ -56,6 +66,7 @@ public class GameScreen extends DefaultScreen {
 		if (mapController != null) {
 			mapController.draw(batch);
 		}
+		bar.draw(batch);
 	}
 
 	@Override
@@ -68,6 +79,8 @@ public class GameScreen extends DefaultScreen {
 		if (mapController != null) {
 			mapController.onLoop(delta);
 		}
+
+		bar.update();
 	}
 
 	public void loadMap(String mapId) {

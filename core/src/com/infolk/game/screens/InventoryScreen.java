@@ -7,8 +7,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.infolk.game.App;
 import com.infolk.game.App.ScreenState;
+import com.infolk.game.screens.components.HealthBar;
 
 public class InventoryScreen extends DefaultScreen {
+
+    HealthBar bar;
 
     public InventoryScreen(final App app) {
         super();
@@ -38,7 +41,9 @@ public class InventoryScreen extends DefaultScreen {
         Table rightTable = new Table(skin);
 
         addImage(leftTable, "sprites/janitor_0.png", 300, 450, 50, 0, false);
-        addImage(rightTable, "sprites/janitor_0.png", 300, 450, 50, 0, false);
+
+        addText(rightTable, "Inventory slots soon to be implemented... ", 0, 0, true);
+        addText(rightTable, "Remind Mihai to do this...", 0, 0, true);
 
         mainTable.add(upperLeftTable);
         mainTable.add(upperRightTable);
@@ -47,12 +52,18 @@ public class InventoryScreen extends DefaultScreen {
         mainTable.add(rightTable).expand();
 
         mainTable.top();
-        stage.setDebugAll(true);
+
+        float width = 500;
+        float height = 40;
+        float x = width / 2;
+        float y = 195;
+
+        bar = new HealthBar(x, y, width, height, 5, 10);
     }
 
     @Override
     public void draw() {
-
+        bar.draw(batch);
     }
 
     @Override
@@ -62,6 +73,7 @@ public class InventoryScreen extends DefaultScreen {
 
     @Override
     public void update(float delta) {
+        bar.update();
     }
 
 }
