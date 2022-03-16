@@ -26,6 +26,7 @@ public class AboutScreen extends DefaultScreen {
                 app.changeScreen(ScreenState.MENU);
             }
         });
+
     }
 
     @Override
