@@ -58,7 +58,6 @@ public abstract class DefaultScreen implements Screen {
 
     @Override
     public void show() {
-        stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1f)));
     }
 
     @Override
@@ -91,7 +90,6 @@ public abstract class DefaultScreen implements Screen {
 
     @Override
     public void hide() {
-        stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1f)));
     }
 
     @Override
