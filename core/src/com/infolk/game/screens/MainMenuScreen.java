@@ -20,7 +20,7 @@ public class MainMenuScreen extends DefaultScreen {
 		int width = (int) (Gdx.graphics.getWidth() * 0.9);
 		int height = (int) (width * 0.075);
 		addImage(mainTable, "gui/logo.png", width, height, 0, 10, true);
-		addText(mainTable, "An info lk 2022 studios production", 0, 100, true);
+		addText(mainTable, "An info lk 2022 studios production", 0, 75, true);
 
 		int distance = 100;
 		addButton(mainTable, "START", 0, distance, 300, 75, true);
