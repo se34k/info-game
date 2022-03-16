@@ -118,6 +118,7 @@ public abstract class DefaultScreen implements Screen {
 
     protected TextButton addButton(Table table, String text, float marginTop, float marginBottom, float width,
             float height, boolean row) {
+
         TextButton button = new TextButton(text, skin);
         button.setName(text);
         table.add(button).space(marginTop, 0, marginBottom, 0).width(width).height(height);
