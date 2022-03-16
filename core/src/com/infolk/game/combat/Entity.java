@@ -1,17 +1,20 @@
 package com.infolk.game.combat;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
-    public Vector2 velocity;
+    private Vector2 velocity;
     public Sprite sprite;
 
     private String name;
     private int hp;
 
-    private Circle hitbox;
+    private Rectangle hitbox;
 
     protected Entity(String name, int hp, Sprite sprite) {
         this.name = name;
@@ -24,14 +27,18 @@ public abstract class Entity {
         this.sprite.setX(100f);
         this.sprite.setY(100f);
 
-        hitbox = new Circle(getX(), getY(), 10);
+        hitbox = new Rectangle(getX(), getY(), this.sprite.getWidth(), this.sprite.getHeight());
     }
 
     public void setVelocity(Vector2 velocity) {
         this.velocity = velocity;
     }
 
-    public Circle getHitbox() {
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+
+    public Rectangle getHitbox() {
         return hitbox;
     }
 
@@ -55,12 +62,32 @@ public abstract class Entity {
         setHP(hp + change);
     }
 
+    public void moveBack(Vector2 factor) {
+        factor.x = factor.x * (velocity.x > 0 ? -1 : velocity.x < 0 ? 1 : 0);
+        factor.y = factor.y * (velocity.y > 0 ? -1 : velocity.y < 0 ? 1 : 0);
+
+        move(factor.x, factor.y);
+    }
+
     public void move(float delta) {
-        this.move(velocity.x * delta, velocity.y * delta);
+        move(velocity.x * delta, velocity.y * delta);
+    }
+
+    public void moveHoriz(float delta) {
+        move(velocity.x * delta, 0);
+    }
+
+    public void moveVert(float delta) {
+        move(0, velocity.y * delta);
     }
 
     public void move(float x, float y) {
-        this.sprite.setPosition(getX() + x, getY() + y);
+        setPosition(getX() + x, getY() + y);
+    }
+
+    public void setPosition(float x, float y) {
+        sprite.setPosition(x, y);
+        hitbox.setPosition(x, y);
     }
 
     public void moveX(float x) {
@@ -83,6 +110,10 @@ public abstract class Entity {
         return new float[] { getX(), getY() };
     }
 
+    public void draw(SpriteBatch batch) {
+        sprite.draw(batch);
+    }
+
     /**
      * Can be used to calculate the distance between this entity and another given entity, for example
      * to use in the combat system when checking whether two opponents are near each other
@@ -94,5 +125,9 @@ public abstract class Entity {
     public float distanceTo(Entity entity) {
         //Pythagoras is our friend
         return (float) Math.sqrt(Math.pow(entity.getX() - getX(), 2) + Math.pow(entity.getY() - getY(), 2));
+    }
+
+    public void onCollision(ArrayList<Entity> targets) {
+        //Placeholder
     }
 }

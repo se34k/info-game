@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.infolk.game.App;
 import com.infolk.game.App.ScreenState;
+import com.infolk.game.combat.NPC;
 import com.infolk.game.combat.Playable;
 import com.infolk.game.core.MapController;
 
@@ -16,6 +17,7 @@ import com.infolk.game.core.MapController;
 public class GameScreen extends DefaultScreen {
 
 	private Playable player;
+	private NPC obstacle;
 
 	private MapController mapController;
 
@@ -42,14 +44,21 @@ public class GameScreen extends DefaultScreen {
 		Sprite playerSprite = new Sprite(new Texture(Gdx.files.internal("sprites/janitor_0.png")));
 		player = new Playable("Player", 20, new Sprite(playerSprite));
 
+		Sprite obstacleSprite = new Sprite(new Texture(Gdx.files.internal("sprites/badlogic.jpg")));
+		obstacle = new NPC("obst", 20, obstacleSprite);
+		obstacle.setPosition(1000, 500);
+
 		loadMap("");
 
 		mapController.addPlayer(player);
+		mapController.addEntity(obstacle);
 	}
 
 	@Override
 	public void draw() {
-		player.sprite.draw(batch);
+		if (mapController != null) {
+			mapController.draw(batch);
+		}
 	}
 
 	@Override
