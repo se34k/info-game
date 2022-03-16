@@ -23,10 +23,10 @@ public class MainMenuScreen extends DefaultScreen {
 		addText(mainTable, "An info lk 2022 studios production", 0, 100, true);
 
 		int distance = 100;
-		addButton(mainTable, "START", 0, distance, true);
-		addButton(mainTable, "OPTIONS", 0, distance, true);
-		addButton(mainTable, "ABOUT", 0, distance, true);
-		addButton(mainTable, "EXIT", 0, distance * 2, true);
+		addButton(mainTable, "START", 0, distance, 300, 75, true);
+		addButton(mainTable, "OPTIONS", 0, distance, 300, 75, true);
+		addButton(mainTable, "ABOUT", 0, distance, 300, 75, true);
+		addButton(mainTable, "EXIT", 0, distance * 2, 300, 75, true);
 
 		for (TextButton button : buttons.values()) {
 			final ScreenState screenName = ScreenState.valueOf(button.getName());

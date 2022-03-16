@@ -19,7 +19,7 @@ public class AboutScreen extends DefaultScreen {
         addImage(mainTable, "gui/about.png", width, height, 0, 10, true);
         addText(mainTable, "Remind Mihai to implement this...", 0, 100, true);
 
-        addButton(mainTable, "Back", 100, 100, true).addListener(new ClickListener() {
+        addButton(mainTable, "Back", 100, 100, 300, 75, true).addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);

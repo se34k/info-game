@@ -24,16 +24,13 @@ public class GameScreen extends DefaultScreen {
 	public GameScreen(final App app) {
 		super();
 
-		addButton(mainTable, "||", 0, 0, false).addListener(new ClickListener() {
+		addButton(mainTable, "||", 0, 0, 75, 75, false).addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
 				app.changeScreen(ScreenState.INVENTORY);
 			}
 		});
-
-		buttons.get("||").setTransform(true);
-		buttons.get("||").setScale(0.2f, 1);
 
 		mainTable.top().left();
 

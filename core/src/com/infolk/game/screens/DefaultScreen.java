@@ -116,14 +116,14 @@ public abstract class DefaultScreen implements Screen {
             table.row();
     }
 
-    protected TextButton addButton(Table table, String text, float marginTop, float marginBottom, boolean row) {
+    protected TextButton addButton(Table table, String text, float marginTop, float marginBottom, float width,
+            float height, boolean row) {
         TextButton button = new TextButton(text, skin);
         button.setName(text);
-        table.add(button).space(marginTop, 0, marginBottom, 0);
+        table.add(button).space(marginTop, 0, marginBottom, 0).width(width).height(height);
         if (row)
             table.row();
         button.addListener(new ClickListener() {
-            @Override
             public void clicked(InputEvent event, float x, float y) {
                 clickSound.play(App.EFFECTS_VOLUME);
             }

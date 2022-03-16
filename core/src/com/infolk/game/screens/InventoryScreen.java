@@ -1,5 +1,6 @@
 package com.infolk.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -10,25 +11,24 @@ public class InventoryScreen extends DefaultScreen {
 
     public InventoryScreen(final App app) {
         super();
+        float buttonWidth = Gdx.graphics.getWidth() / 4;
 
-        TextButton menuBtn = addButton(mainTable, "Menu", 0, 0, true);
-        TextButton backBtn = addButton(mainTable, "Back", 0, 0, true);
+        mainTable.top().left();
 
-        menuBtn.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                app.changeScreen(ScreenState.MENU);
-            }
-        });
+        addButton(mainTable, "START", 0, 0, buttonWidth, 75, false);
+        addButton(mainTable, "MENU", 0, 0, buttonWidth, 75, false);
+        addButton(mainTable, "OPTIONS", 0, 0, buttonWidth, 75, false);
+        addButton(mainTable, "EXIT", 0, 0, buttonWidth, 75, false);
 
-        backBtn.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                app.changeScreen(ScreenState.START);
-            }
-        });
+        for (TextButton button : buttons.values()) {
+            final ScreenState screenName = ScreenState.valueOf(button.getName());
+            button.addListener(new ClickListener() {
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    app.changeScreen(screenName);
+                }
+            });
+        }
     }
 
     @Override
@@ -38,7 +38,7 @@ public class InventoryScreen extends DefaultScreen {
 
     @Override
     public void cleanUp() {
-        
+
     }
 
     @Override
