@@ -1,5 +1,7 @@
 package com.infolk.game.combat;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -30,6 +32,10 @@ public abstract class Entity {
 
     public void setVelocity(Vector2 velocity) {
         this.velocity = velocity;
+    }
+
+    public Vector2 getVelocity() {
+        return velocity;
     }
 
     public Rectangle getHitbox() {
@@ -119,5 +125,9 @@ public abstract class Entity {
     public float distanceTo(Entity entity) {
         //Pythagoras is our friend
         return (float) Math.sqrt(Math.pow(entity.getX() - getX(), 2) + Math.pow(entity.getY() - getY(), 2));
+    }
+
+    public void onCollision(ArrayList<Entity> targets) {
+        //Placeholder
     }
 }
