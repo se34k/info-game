@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
     private Vector2 velocity;
+    private Vector2 direction;
+    private float speed;
     public Sprite sprite;
 
     private String name;
@@ -22,12 +24,26 @@ public abstract class Entity {
 
         // Initialize vector with 0, 0
         velocity = new Vector2(0, 0);
+        direction = new Vector2(0, 0);
+        speed = 0;
 
         this.sprite = sprite;
-        this.sprite.setX(100f);
-        this.sprite.setY(100f);
 
         hitbox = new Rectangle(getX(), getY(), this.sprite.getWidth(), this.sprite.getHeight());
+    }
+
+    protected Entity(String name, int hp, Sprite sprite, float x, float y) {
+        this.name = name;
+        this.hp = hp;
+
+        // Initialize vector with 0, 0
+        velocity = new Vector2(0, 0);
+
+        this.sprite = sprite;
+
+        hitbox = new Rectangle(getX(), getY(), this.sprite.getWidth(), this.sprite.getHeight());
+
+        setPosition(x, y);
     }
 
     public Rectangle getProjected(float delta, int xFactor, int yFactor) {
