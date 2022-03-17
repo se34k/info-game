@@ -51,9 +51,6 @@ public abstract class DefaultScreen implements Screen {
         stage.addActor(mainTable);
 
         batch = new SpriteBatch();
-
-        mainTable.setBackground(
-                new TextureRegionDrawable(new Texture(Gdx.files.internal("craftacular/raw/craftacular-mockup.png"))));
     }
 
     @Override

@@ -1,10 +1,17 @@
 package com.infolk.game.screens;
 
+import javax.swing.plaf.ColorUIResource;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.infolk.game.App;
 import com.infolk.game.App.ScreenState;
 import com.infolk.game.combat.NPC;
@@ -45,6 +52,12 @@ public class GameScreen extends DefaultScreen {
 		float y = Gdx.graphics.getHeight() - height * 1.3f;
 
 		bar = new HealthBar(x, y, width, height, 5, 10);
+
+		Pixmap color = new Pixmap(500, 500, Pixmap.Format.RGB888);
+		color.setColor(Color.WHITE);
+		color.fill();
+
+		mainTable.setBackground(new Image(new Texture(color)).getDrawable());
 	}
 
 	private void testInit() {
