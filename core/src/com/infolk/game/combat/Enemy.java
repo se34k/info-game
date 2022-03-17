@@ -18,7 +18,22 @@ public abstract class Enemy extends Entity{
     if(this.isInAttackreach(player) == false){
       return;
     }
-    
+    Vector2 location = new Vector2(player.getX(), player.getY());
+    Vector2 coordinates = new Vector2(super.getX(), super.getY());
+    Vector2 richtung = location.sub(coordinates); //Richtungsvektor zwischen Player und Gegner
+    float x = 0;
+    float y = 0;
+    if (richtung.x < 0) {
+      x = -1;
+    } else if (richtung.x > 0) {
+        x = 1;  
+      }
+    if (richtung.y < 0) {
+      y = -1:;
+    } else if (richtung.x > 0) {
+        y = 1;  
+      }  
+    super.move(x, y);
   }
   
   public boolean isDead(){
