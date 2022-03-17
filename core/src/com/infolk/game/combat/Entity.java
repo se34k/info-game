@@ -20,7 +20,7 @@ public abstract class Entity {
         this.name = name;
         this.hp = hp;
 
-        //Initialize vector with 0, 0
+        // Initialize vector with 0, 0
         velocity = new Vector2(0, 0);
 
         this.sprite = sprite;
@@ -119,19 +119,21 @@ public abstract class Entity {
     }
 
     /**
-     * Can be used to calculate the distance between this entity and another given entity, for example
-     * to use in the combat system when checking whether two opponents are near each other
+     * Can be used to calculate the distance between this entity and another given
+     * entity, for example
+     * to use in the combat system when checking whether two opponents are near each
+     * other
      * 
-     * @param entity    The entity to compare to
+     * @param entity The entity to compare to
      * 
-     * @return          A float value with the distance between the two entities
+     * @return A float value with the distance between the two entities
      */
     public float distanceTo(Entity entity) {
-        //Pythagoras is our friend
+        // Pythagoras is our friend
         return (float) Math.sqrt(Math.pow(entity.getX() - getX(), 2) + Math.pow(entity.getY() - getY(), 2));
     }
 
     public void onCollision(ArrayList<Entity> targets) {
-        //Placeholder
+        // Placeholder
     }
 }

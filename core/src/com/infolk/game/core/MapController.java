@@ -25,10 +25,10 @@ public class MapController {
     public MapController(String mapId) {
         players = new ArrayList<>();
         entities = new ArrayList<>();
-    
-		move = new Movement();
 
-        //TODO: Load map data according to mapId parameter
+        move = new Movement();
+
+        // TODO: Load map data according to mapId parameter
     }
 
     public void addEntity(Entity pEntity) {

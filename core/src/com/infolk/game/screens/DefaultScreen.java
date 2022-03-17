@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.infolk.game.App;
 
@@ -50,11 +51,13 @@ public abstract class DefaultScreen implements Screen {
         stage.addActor(mainTable);
 
         batch = new SpriteBatch();
+
+        mainTable.setBackground(
+                new TextureRegionDrawable(new Texture(Gdx.files.internal("craftacular/raw/craftacular-mockup.png"))));
     }
 
     @Override
     public void show() {
-        stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3f)));
     }
 
     @Override
@@ -87,7 +90,6 @@ public abstract class DefaultScreen implements Screen {
 
     @Override
     public void hide() {
-        stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(3f)));
     }
 
     @Override
@@ -116,14 +118,15 @@ public abstract class DefaultScreen implements Screen {
             table.row();
     }
 
-    protected TextButton addButton(Table table, String text, float marginTop, float marginBottom, boolean row) {
+    protected TextButton addButton(Table table, String text, float marginTop, float marginBottom, float width,
+            float height, boolean row) {
+
         TextButton button = new TextButton(text, skin);
         button.setName(text);
-        table.add(button).space(marginTop, 0, marginBottom, 0);
+        table.add(button).space(marginTop, 0, marginBottom, 0).width(width).height(height);
         if (row)
             table.row();
         button.addListener(new ClickListener() {
-            @Override
             public void clicked(InputEvent event, float x, float y) {
                 clickSound.play(App.EFFECTS_VOLUME);
             }
