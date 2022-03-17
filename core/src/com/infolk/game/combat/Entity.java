@@ -30,6 +30,10 @@ public abstract class Entity {
         hitbox = new Rectangle(getX(), getY(), this.sprite.getWidth(), this.sprite.getHeight());
     }
 
+    public Rectangle getProjected(float delta, int xFactor, int yFactor) {
+        return new Rectangle(getX() + velocity.x * delta * xFactor, getY() + velocity.y * delta * yFactor, hitbox.getWidth(), hitbox.getHeight());
+    }
+
     public void setVelocity(Vector2 velocity) {
         this.velocity = velocity;
     }
@@ -106,7 +110,7 @@ public abstract class Entity {
         return this.sprite.getY();
     }
 
-    public float[] getPos() {
+    public float[] getPosition() {
         return new float[] { getX(), getY() };
     }
 
