@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.infolk.game.combat.DavyCrockett;
 import com.infolk.game.combat.Entity;
@@ -39,7 +41,7 @@ public class MapController {
     }
 
     public void onLoop(float delta) {
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             DavyCrockett dc = new DavyCrockett();
             dc.setPosition(players.get(0).getX() + 50, players.get(0).getY() + 50);
             addEntity(dc);
@@ -55,23 +57,29 @@ public class MapController {
                 e.onCollision(violators);
             }
 
-            e.moveVert(delta);
-            correctCollisions(e, 0, 1);
+            if (collisions(e.getProjected(delta, 1, 0), e).isEmpty()) {
+                e.moveHoriz(delta);
+            }
+            if (collisions(e.getProjected(delta, 0, 1), e).isEmpty()) {
+                e.moveVert(delta);
+            }
 
-            e.moveHoriz(delta);
-            correctCollisions(e, 1, 0);
+            correctCollisions(e, 0, 1, delta);
+            correctCollisions(e, 1, 0, delta);
         }
     }
 
-    private void correctCollisions(Entity entity, int xFactor, int yFactor) {
+    private void correctCollisions(Entity entity, int xFactor, int yFactor, float delta) {
         ArrayList<Entity> violators = collisions(entity);
         if (!violators.isEmpty()) {
 
             for (Entity violator : violators) {
-                int tryc = 0;
-                while (entity.overlaps(violator) && tryc < 1000) {
+                int tryx = 0;
+                int tryy = 0;
+                while (entity.overlaps(violator) /*&& entity.getX() < Math.abs(entity.getVelocity().x) * delta && entity.getY() < Math.abs(entity.getVelocity().y) * delta*/ && tryx < 1000) {
                     entity.moveBack(new Vector2(xFactor, yFactor));
-                    tryc++;
+                    tryx += xFactor;
+                    tryy += yFactor;
                 }
             }
         }
@@ -84,6 +92,31 @@ public class MapController {
             if (e.overlaps(entity) && e != entity) {
                 violators.add(e);
             }
+        }
+
+        return violators;
+    }
+
+    public ArrayList<Entity> collisions(Rectangle shape, Entity entity) {
+        ArrayList<Entity> violators = new ArrayList<>();
+
+        for (Entity e : entities) {
+            if (shape.overlaps(e.getHitbox()) && e != entity) {
+                violators.add(e);
+            }
+        }
+
+        return violators;
+    }
+
+    public ArrayList<Entity> collisions(Circle shape, Entity entity) {
+        ArrayList<Entity> violators = new ArrayList<>();
+
+        for (Entity e : entities) {
+            /*if (shape.overlaps(e.getHitbox()) && e != entity) {
+                violators.add(e);
+            }
+            */
         }
 
         return violators;
