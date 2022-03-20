@@ -69,7 +69,7 @@ public class GameScreen extends DefaultScreen {
 		player = new Playable("Player", 20, new Sprite(playerSprite));
 
 		Sprite obstacleSprite = new Sprite(new Texture(Gdx.files.internal("sprites/badlogic.jpg")));
-		obstacle = new NPC("obst", 20, obstacleSprite);
+		obstacle = new NPC("obst", 20, obstacleSprite, 0, 0);
 		obstacle.setPosition(1000, 500);
 
 		loadMap("");
@@ -87,7 +87,7 @@ public class GameScreen extends DefaultScreen {
 	}
 
 	@Override
-    public void render(float delta) {
+  public void render(float delta) {
 		batch.setProjectionMatrix(camera.combined);
 
 		if (mapController != null) {
@@ -99,7 +99,7 @@ public class GameScreen extends DefaultScreen {
 		camera.update();
 
 		super.render(delta);
-    }
+	}
 
 	@Override
 	public void cleanUp() {

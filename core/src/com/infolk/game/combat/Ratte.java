@@ -9,7 +9,7 @@ public class Ratte extends Enemy {
         super("Ratte", 5, new Sprite(new Texture(Gdx.files.internal("Ratte.png"))), x, y, 30f);
     }
     
-    public void verfolgen(Entity entity){
+    public void verfolgen(Entity entity) {
         track(entity);
     }
 }

@@ -9,5 +9,4 @@ public class Inder extends NPC{
   public Inder(float x, float y){
     super("Inder", 1, new Sprite(new Texture(Gdx.files.internal("Inder.png"))), x, y);
   }
-  
 }

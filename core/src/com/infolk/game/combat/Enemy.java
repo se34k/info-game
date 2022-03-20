@@ -50,7 +50,7 @@ public abstract class Enemy extends Entity {
   public boolean isAttackable() {
     return isAttackable;
   }
-
+  
   public boolean isInAttackReach(Entity player) {
     return (distanceTo(player) <= reach);
   }
