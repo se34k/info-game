@@ -88,8 +88,6 @@ public class GameScreen extends DefaultScreen {
 
 	@Override
   public void render(float delta) {
-		batch.setProjectionMatrix(camera.combined);
-
 		if (mapController != null) {
 			//We set the camera's position to that of the player in the current MapController on every rendering turn so that it follows
 			//the player's movement
@@ -98,6 +96,7 @@ public class GameScreen extends DefaultScreen {
 
 		camera.update();
 
+		batch.setProjectionMatrix(camera.combined);
 		super.render(delta);
 	}
 
