@@ -48,7 +48,10 @@ public class HealthBar {
             } else {
                 hearts.add(new Texture(Gdx.files.internal("healthbar/border.png")));
             }
-
         }
+    }
+
+    public void setCurrentHealth(float currentHealth) {
+        this.currentHealth = currentHealth;
     }
 }

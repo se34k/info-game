@@ -19,6 +19,8 @@ public class MapController {
     private Playable player;
     private ArrayList<Entity> entities;
 
+    private String mapId;
+
     private Movement move;
 
     public MapController(String mapId) {
@@ -26,7 +28,12 @@ public class MapController {
 
         move = new Movement();
 
+        this.mapId = mapId;
         // TODO: Load map data according to mapId parameter
+    }
+
+    public String getMapId() {
+        return mapId;
     }
 
     public void addEntity(Entity pEntity) {

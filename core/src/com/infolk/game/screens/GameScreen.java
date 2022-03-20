@@ -113,6 +113,8 @@ public class GameScreen extends DefaultScreen {
 	public void update(float delta) {
 		if (mapController != null) {
 			mapController.onLoop(delta);
+
+			bar.setCurrentHealth(mapController.getPlayer().getHP());
 		}
 
 		bar.update();

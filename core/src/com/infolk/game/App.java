@@ -75,10 +75,6 @@ public class App extends Game {
 		}
 	}
 
-	public void render() {
-		super.render();
-	}
-
 	public void dispose() {
 	}
 
