@@ -20,11 +20,9 @@ public abstract class Enemy extends Entity {
     if (!isInAttackReach(player)) {
       return;
     }
-
-    Vector2 location = player.getPosition();
-    Vector2 coordinates = getPosition();
     
-    Vector2 richtung = location.sub(coordinates); // Richtungsvektor zwischen Player und Gegner
+    Vector2 richtung = vectorTo(player); // Richtungsvektor zwischen Player und Gegner
+    
     float x = 0;
     float y = 0;
 

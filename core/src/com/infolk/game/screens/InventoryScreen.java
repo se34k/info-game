@@ -69,7 +69,7 @@ public class InventoryScreen extends DefaultScreen {
 
     @Override
     public void cleanUp() {
-
+        
     }
 
     @Override

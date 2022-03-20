@@ -14,27 +14,27 @@ import com.infolk.game.App;
 import com.infolk.game.App.ScreenState;
 import com.infolk.game.combat.NPC;
 import com.infolk.game.combat.Playable;
+import com.infolk.game.core.GameManager;
 import com.infolk.game.core.MapController;
+import com.infolk.game.core.interfaces.MapChangeListener;
 import com.infolk.game.screens.components.HealthBar;
 
 /**
  * @author Mihai
  */
-public class GameScreen extends DefaultScreen {
-
-	private Playable player;
-	private NPC obstacle;
-
+public class GameScreen extends DefaultScreen implements MapChangeListener {
 	private OrthographicCamera camera;
-
-	private HealthBar bar;
-
 	private MapController mapController;
 
 	protected SpriteBatch hudBatch;
+	private HealthBar bar;
+
+	private GameManager gameManager;
 
 	public GameScreen(final App app) {
 		super();
+
+		this.gameManager = app.getGameManager();
 
 		addButton(mainTable, "||", 0, 0, 75, 75, false).addListener(new ClickListener() {
 			@Override
@@ -45,8 +45,6 @@ public class GameScreen extends DefaultScreen {
 		});
 
 		mainTable.top().left();
-
-		testInit();
 
 		float width = 500;
 		float height = 50;
@@ -66,18 +64,25 @@ public class GameScreen extends DefaultScreen {
 		//The camera's position has to be set in the center of the viewport
 		camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
 
+		//This batch is independent from the camera so it does not move with the player
 		hudBatch = new SpriteBatch();
+
+		setMapController(app.getGameManager().getCurrentMap());
+
+		if (mapController.getPlayer() == null) {
+			testInit();
+		}
+
+		app.getGameManager().registerMapChangeListener(this);
 	}
 
 	private void testInit() {
 		Sprite playerSprite = new Sprite(new Texture(Gdx.files.internal("sprites/janitor_0.png")));
-		player = new Playable("Player", 20, new Sprite(playerSprite));
+		Playable player = new Playable("Player", 20, new Sprite(playerSprite));
 
 		Sprite obstacleSprite = new Sprite(new Texture(Gdx.files.internal("sprites/badlogic.jpg")));
-		obstacle = new NPC("obst", 20, obstacleSprite, 0, 0);
+		NPC obstacle = new NPC("obst", 20, obstacleSprite, 0, 0);
 		obstacle.setPosition(1000, 500);
-
-		loadMap("");
 
 		mapController.addPlayer(player);
 		mapController.addEntity(obstacle);
@@ -103,6 +108,7 @@ public class GameScreen extends DefaultScreen {
 
 		super.render(delta);
 
+		//The health bar is rendered as part of hudBatch so it doesn't move
 		hudBatch.begin();
 		bar.draw(hudBatch);
 		hudBatch.end();
@@ -110,25 +116,28 @@ public class GameScreen extends DefaultScreen {
 
 	@Override
 	public void cleanUp() {
-		batch.dispose();
+		hudBatch.dispose();
+		gameManager.unregisterMapChangeListener(this);
 	}
 
 	@Override
 	public void update(float delta) {
 		if (mapController != null) {
 			mapController.onLoop(delta);
+
+			bar.setCurrentHealth(mapController.getPlayer().getHP());
 		}
 
 		bar.update();
 	}
 
-	public void loadMap(String mapId) {
-		MapController mc = new MapController(mapId);
-
-		setMapController(mc);
+	public void setMapController(MapController mc) {
+		mapController = mc;
 	}
 
-	private void setMapController(MapController mc) {
-		mapController = mc;
+	@Override
+	public void onMapChange(MapController newMap) {
+		//This listener is used to ensure the displayed map is changed as soon as it is changed in the GameManager
+		setMapController(newMap);
 	}
 }

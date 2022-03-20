@@ -2,8 +2,8 @@ package com.infolk.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.audio.Music;
+import com.infolk.game.core.GameManager;
 import com.infolk.game.screens.AboutScreen;
 import com.infolk.game.screens.GameScreen;
 import com.infolk.game.screens.InventoryScreen;
@@ -40,6 +40,11 @@ public class App extends Game {
 		music.setLooping(true);
 		music.play();
 		music.setVolume(App.MUSIC_VOLUME);
+
+		manager = new GameManager();
+
+		manager.createAndAddMap("test");
+		manager.changeCurrentMap("test");
 	}
 
 	public void changeScreen(ScreenState state) {
@@ -75,8 +80,8 @@ public class App extends Game {
 		}
 	}
 
-	public void render() {
-		super.render();
+	public GameManager getGameManager() {
+		return manager;
 	}
 
 	public void dispose() {
