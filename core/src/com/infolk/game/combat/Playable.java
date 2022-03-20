@@ -11,7 +11,7 @@ public class Playable extends Entity {
 
         dashFactor = 1;
         energy = 100f;
-
+        super.displayBar = false;
         setSpeed(200);
     }
 

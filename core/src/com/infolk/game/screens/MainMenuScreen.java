@@ -19,10 +19,10 @@ public class MainMenuScreen extends DefaultScreen {
 	public MainMenuScreen(final App app) {
 		super();
 
+		addText(mainTable, "An info lk 2022 studios production", 0, 0, true);
 		int width = (int) (Gdx.graphics.getWidth() * 0.9);
-		int height = (int) (width * 0.075);
-		addImage(mainTable, "gui/logo.png", width, height, 0, 10, true);
-		addText(mainTable, "An info lk 2022 studios production", 0, 75, true);
+		int height = (int) (width * 0.125);
+		addImage(mainTable, "gui/title.png", width, height, 0, 75, true);
 
 		int distance = 100;
 		addButton(mainTable, "START", 0, distance, 300, 75, true);
@@ -42,7 +42,7 @@ public class MainMenuScreen extends DefaultScreen {
 		}
 
 		mainTable.setBackground(
-			new TextureRegionDrawable(new Texture(Gdx.files.internal("images/janitortalesbg.png"))));
+				new TextureRegionDrawable(new Texture(Gdx.files.internal("gui/background.png"))));
 	}
 
 	@Override

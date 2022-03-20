@@ -28,6 +28,7 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 
 	protected SpriteBatch hudBatch;
 	private HealthBar bar;
+	private float barWidth = 500, barHeight = barWidth / 10;
 
 	private GameManager gameManager;
 
@@ -44,14 +45,11 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 			}
 		});
 
+		float barX = 90, barY = Gdx.graphics.getHeight() - barHeight * 1.3f;
+		System.out.println(barY);
+		bar = new HealthBar(barX, barY, barWidth, barHeight, 5, 10);
+
 		mainTable.top().left();
-
-		float width = 500;
-		float height = 50;
-		float x = 110;
-		float y = Gdx.graphics.getHeight() - height * 1.3f;
-
-		bar = new HealthBar(x, y, width, height, 5, 10);
 
 		Pixmap color = new Pixmap(500, 500, Pixmap.Format.RGB888);
 		color.setColor(Color.WHITE);
@@ -59,12 +57,12 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 
 		mainTable.setBackground(new Image(new Texture(color)).getDrawable());
 
-		//Create a camera so we will be able to follow the player later on
+		// Create a camera so we will be able to follow the player later on
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		//The camera's position has to be set in the center of the viewport
+		// The camera's position has to be set in the center of the viewport
 		camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
 
-		//This batch is independent from the camera so it does not move with the player
+		// This batch is independent from the camera so it does not move with the player
 		hudBatch = new SpriteBatch();
 
 		setMapController(app.getGameManager().getCurrentMap());
@@ -78,11 +76,11 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 
 	private void testInit() {
 		Sprite playerSprite = new Sprite(new Texture(Gdx.files.internal("sprites/janitor_0.png")));
-		Playable player = new Playable("Player", 20, new Sprite(playerSprite));
+		Playable player = new Playable("Player", 10, new Sprite(playerSprite));
 
 		Sprite obstacleSprite = new Sprite(new Texture(Gdx.files.internal("sprites/badlogic.jpg")));
-		NPC obstacle = new NPC("obst", 20, obstacleSprite, 0, 0);
-		obstacle.setPosition(1000, 500);
+		NPC obstacle = new NPC("obst", 10, obstacleSprite, 0, 0);
+		obstacle.setPosition(300, 200);
 
 		mapController.addPlayer(player);
 		mapController.addEntity(obstacle);
@@ -96,10 +94,11 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 	}
 
 	@Override
-  	public void render(float delta) {
+	public void render(float delta) {
 		if (mapController != null) {
-			//We set the camera's position to that of the player in the current MapController on every rendering turn so that it follows
-			//the player's movement
+			// We set the camera's position to that of the player in the current
+			// MapController on every rendering turn so that it follows
+			// the player's movement
 			camera.position.set(mapController.getPlayer().getX(), mapController.getPlayer().getY(), 0);
 		}
 
@@ -108,7 +107,7 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 
 		super.render(delta);
 
-		//The health bar is rendered as part of hudBatch so it doesn't move
+		// The health bar is rendered as part of hudBatch so it doesn't move
 		hudBatch.begin();
 		bar.draw(hudBatch);
 		hudBatch.end();
@@ -137,7 +136,8 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 
 	@Override
 	public void onMapChange(MapController newMap) {
-		//This listener is used to ensure the displayed map is changed as soon as it is changed in the GameManager
+		// This listener is used to ensure the displayed map is changed as soon as it is
+		// changed in the GameManager
 		setMapController(newMap);
 	}
 }
