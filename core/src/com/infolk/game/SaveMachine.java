@@ -80,7 +80,6 @@ public class SaveMachine {
             }
             child = child.get(s);
         }
-        // child = value;
     }
 
     // Lädt einen Wert in Form von JsonValue bei path.

@@ -30,6 +30,7 @@ public class InventoryScreen extends DefaultScreen {
         for (TextButton button : buttons.values()) {
             final ScreenState screenName = ScreenState.valueOf(button.getName());
             button.addListener(new ClickListener() {
+                @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     app.changeScreen(screenName);
