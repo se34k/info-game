@@ -1,0 +1,23 @@
+public class Ratte extends Enemy{
+    int hp;
+    int velocity;
+    int name;
+    boolean isDead;
+    boolean isAttackable;
+    private Vector2 coordinates;
+    private Texture texture;
+
+    public Ratte(World world, int , int y){
+        hp = 5;
+        velocity = 1;
+        name = "Ratte";
+        super(velocity, hp, name, world, x, y);
+        isDead = false;
+        isAttackable = true;
+        this.coordinates.x = x;
+        this.coordinates.y = y;
+        texture = new Texture(Gdx.files.internal("....png"));
+        Sprite sprite = new Sprite(texture);
+    }
+
+}
