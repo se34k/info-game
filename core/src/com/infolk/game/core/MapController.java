@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+
 import com.infolk.game.combat.DavyCrockett;
 import com.infolk.game.combat.Entity;
 import com.infolk.game.combat.Movement;
@@ -83,27 +83,6 @@ public class MapController {
             }
             if (collisions(e.getProjected(cdelta, 0, 1), e).isEmpty()) {
                 e.moveVert(delta);
-            }
-
-            /*
-             * correctCollisions(e, 0, 1, delta);
-             * correctCollisions(e, 1, 0, delta);
-             */
-        }
-    }
-
-    private void correctCollisions(Entity entity, int xFactor, int yFactor, float delta) {
-        ArrayList<Entity> violators = collisions(entity);
-        if (!violators.isEmpty()) {
-
-            for (Entity violator : violators) {
-                int tryx = 0;
-                while (entity.overlaps(violator) && entity.getPosition().x != entity
-                        .getProjected(delta, (int) entity.getDirection().x * -1, (int) entity.getDirection().y * -1)
-                        .getX()) {
-                    entity.moveBack(new Vector2(xFactor, yFactor));
-                    tryx += xFactor;
-                }
             }
         }
     }

@@ -10,12 +10,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 import com.infolk.game.App;
 import com.infolk.game.App.ScreenState;
-import com.infolk.game.combat.Entity;
 import com.infolk.game.combat.EntityObject;
-import com.infolk.game.combat.EntityObject;
-import com.infolk.game.combat.NPC;
 import com.infolk.game.combat.Playable;
 import com.infolk.game.core.GameManager;
 import com.infolk.game.core.MapController;
@@ -49,7 +47,6 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		});
 
 		float barX = 90, barY = Gdx.graphics.getHeight() - barHeight * 1.3f;
-		System.out.println(barY);
 		bar = new HealthBar(barX, barY, barWidth, barHeight, 5, 10);
 
 		mainTable.top().left();
