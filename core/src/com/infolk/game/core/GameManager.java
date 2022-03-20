@@ -15,6 +15,7 @@ public class GameManager {
 
     public GameManager() {
         maps = new ArrayList<>();
+        mclisteners = new ArrayList<>();
     }
 
     public void addMap(MapController map) {
