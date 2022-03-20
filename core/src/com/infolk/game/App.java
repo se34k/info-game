@@ -2,6 +2,7 @@ package com.infolk.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.infolk.game.core.GameManager;
 import com.infolk.game.screens.AboutScreen;
@@ -32,6 +33,9 @@ public class App extends Game {
 	public Music music;
 	public float musicPosition;
 
+	private ScreenState lastScreen;
+	private ScreenState currentScreen;
+
 	@Override
 	public void create() {
 		changeScreen(ScreenState.MENU);
@@ -45,39 +49,44 @@ public class App extends Game {
 
 		manager.createAndAddMap("test");
 		manager.changeCurrentMap("test");
+
+		lastScreen = ScreenState.MENU;
+		currentScreen = ScreenState.MENU;
 	}
 
 	public void changeScreen(ScreenState state) {
+		lastScreen = currentScreen;
+		currentScreen = state;
+
+		setScreen(getScreen(state));
+	}
+
+	public void goBack() {
+		changeScreen(lastScreen);
+	}
+
+	private Screen getScreen(ScreenState state) {
 		switch (state) {
 			case MENU:
-				this.setScreen(new MainMenuScreen(this));
-				break;
-
+				return new MainMenuScreen(this);
 			case START:
 				music.stop();
-				this.setScreen(new GameScreen(this));
-				break;
-
+				return new GameScreen(this);
 			case ABOUT:
-				this.setScreen(new AboutScreen(this));
-				break;
-
+				return new AboutScreen(this);
 			case OPTIONS:
-				this.setScreen(new OptionsScreen(this));
-				break;
-
+				return new OptionsScreen(this);
 			case EXIT:
 				saveProgress();
 				System.exit(0);
 				break;
-
 			case INVENTORY:
-				this.setScreen(new InventoryScreen(this));
-				break;
-
+				return new InventoryScreen(this);
 			default:
 				System.out.println("Remind Mihai to implement the " + state.toString() + " screen...");
 		}
+
+		return null;
 	}
 
 	public GameManager getGameManager() {
