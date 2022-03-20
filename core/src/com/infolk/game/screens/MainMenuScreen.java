@@ -42,7 +42,7 @@ public class MainMenuScreen extends DefaultScreen {
 		}
 
 		mainTable.setBackground(
-			new TextureRegionDrawable(new Texture(Gdx.files.internal("craftacular/raw/craftacular-mockup.png"))));
+			new TextureRegionDrawable(new Texture(Gdx.files.internal("images/janitortalesbg.png"))));
 	}
 
 	@Override

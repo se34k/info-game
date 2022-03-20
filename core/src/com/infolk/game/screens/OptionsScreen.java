@@ -56,7 +56,7 @@ public class OptionsScreen extends DefaultScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                app.changeScreen(ScreenState.MENU);
+                app.goBack();
             }
         });
     }
