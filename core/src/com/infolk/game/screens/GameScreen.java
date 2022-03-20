@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -29,6 +30,8 @@ public class GameScreen extends DefaultScreen {
 	private HealthBar bar;
 
 	private MapController mapController;
+
+	protected SpriteBatch hudBatch;
 
 	public GameScreen(final App app) {
 		super();
@@ -62,6 +65,8 @@ public class GameScreen extends DefaultScreen {
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		//The camera's position has to be set in the center of the viewport
 		camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
+
+		hudBatch = new SpriteBatch();
 	}
 
 	private void testInit() {
@@ -83,11 +88,10 @@ public class GameScreen extends DefaultScreen {
 		if (mapController != null) {
 			mapController.draw(batch);
 		}
-		bar.draw(batch);
 	}
 
 	@Override
-  public void render(float delta) {
+  	public void render(float delta) {
 		if (mapController != null) {
 			//We set the camera's position to that of the player in the current MapController on every rendering turn so that it follows
 			//the player's movement
@@ -95,9 +99,13 @@ public class GameScreen extends DefaultScreen {
 		}
 
 		camera.update();
-
 		batch.setProjectionMatrix(camera.combined);
+
 		super.render(delta);
+
+		hudBatch.begin();
+		bar.draw(hudBatch);
+		hudBatch.end();
 	}
 
 	@Override
