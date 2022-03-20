@@ -1,5 +1,5 @@
 package com.infolk.game.combat;
-
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 public abstract class Enemy extends Entity{
   
@@ -29,7 +29,7 @@ public abstract class Enemy extends Entity{
         x = 1;  
       }
     if (richtung.y < 0) {
-      y = -1:;
+      y = -1;
     } else if (richtung.x > 0) {
         y = 1;  
       }  
@@ -45,7 +45,7 @@ public abstract class Enemy extends Entity{
   }
   
   public boolean isInAttackreach(Playable player){
-    if(super.distanceto(player) <= reach){
+    if(super.distanceTo(player) <= reach){
       return true;
     }
     return false;

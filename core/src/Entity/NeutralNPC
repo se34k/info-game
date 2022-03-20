@@ -1,9 +1,0 @@
-public class NeutralNPC extends Entity{
-    String name;
-    boolean isAttackable;
-    public NeutralNPC(String name, World world, int x, int y){
-        this.name = name;
-        isAttackable = false;
-        super.(name, 0, 0, x, y);
-    }
-}

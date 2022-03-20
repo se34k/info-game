@@ -4,13 +4,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class Ratte extends Enemy{
   
   public Ratte(float x, float y){
-    texture = new Texture(Gdx.files.internal("Ratte.png"));
-    Sprite sprite = new Sprite(texture);
-    super.("Ratte", 5, sprite, x, y, 30f);
+    super("Ratte", 5, new Sprite(new Texture(Gdx.files.internal("Ratte.png")), x, y, 30f);
   }
    
-  public void verfolgen(Playable player){
-    super.track(player);
+  public void verfolgen(Entity entity){
+    super.track(entity);
   }
   
 }
