@@ -7,7 +7,6 @@ package com.infolk.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import java.io.IOException;
@@ -86,7 +85,7 @@ public class SaveMachine {
             }
             child = child.get(s);
         }
-        child = value;
+        // child = value;
     }
     
     // Lädt einen Wert in Form von JsonValue bei path.

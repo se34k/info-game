@@ -11,8 +11,9 @@ public class DavyCrockett extends Entity {
     public DavyCrockett() {
         super("Davy Crockett Nuclear Device", 10, new Sprite(new Texture(Gdx.files.internal("sprites/davycrockett.png"))));
 
-        setVelocity(new Vector2(50, 50));
-        this.sprite.setRotation(this.getVelocity().angleDeg());
+        setSpeed(100);
+        setDirection(new Vector2(0, 1));
+        getSprite().setRotation(this.getVelocity().angleDeg());
     }
 
     @Override
