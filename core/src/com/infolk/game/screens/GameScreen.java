@@ -21,17 +21,11 @@ import com.infolk.game.screens.components.HealthBar;
  * @author Mihai
  */
 public class GameScreen extends DefaultScreen {
-
-	private Playable player;
-	private NPC obstacle;
-
 	private OrthographicCamera camera;
-
-	private HealthBar bar;
-
 	private MapController mapController;
 
 	protected SpriteBatch hudBatch;
+	private HealthBar bar;
 
 	public GameScreen(final App app) {
 		super();
@@ -66,15 +60,16 @@ public class GameScreen extends DefaultScreen {
 		//The camera's position has to be set in the center of the viewport
 		camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
 
+		//This batch is independent from the camera so it does not move with the player
 		hudBatch = new SpriteBatch();
 	}
 
 	private void testInit() {
 		Sprite playerSprite = new Sprite(new Texture(Gdx.files.internal("sprites/janitor_0.png")));
-		player = new Playable("Player", 20, new Sprite(playerSprite));
+		Playable player = new Playable("Player", 20, new Sprite(playerSprite));
 
 		Sprite obstacleSprite = new Sprite(new Texture(Gdx.files.internal("sprites/badlogic.jpg")));
-		obstacle = new NPC("obst", 20, obstacleSprite, 0, 0);
+		NPC obstacle = new NPC("obst", 20, obstacleSprite, 0, 0);
 		obstacle.setPosition(1000, 500);
 
 		loadMap("");
@@ -103,6 +98,7 @@ public class GameScreen extends DefaultScreen {
 
 		super.render(delta);
 
+		//The health bar is rendered as part of hudBatch so it doesn't move
 		hudBatch.begin();
 		bar.draw(hudBatch);
 		hudBatch.end();
@@ -110,7 +106,7 @@ public class GameScreen extends DefaultScreen {
 
 	@Override
 	public void cleanUp() {
-		batch.dispose();
+		hudBatch.dispose();
 	}
 
 	@Override

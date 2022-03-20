@@ -64,7 +64,7 @@ public abstract class DefaultScreen implements Screen {
         batch.begin();
         draw();
         batch.end();
-        
+
         update(delta);
     }
 
@@ -94,6 +94,7 @@ public abstract class DefaultScreen implements Screen {
         stage.dispose();
         clickSound.dispose();
         selectSound.dispose();
+        batch.dispose();
         cleanUp();
     }
 
