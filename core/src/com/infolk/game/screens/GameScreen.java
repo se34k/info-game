@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.infolk.game.App;
 import com.infolk.game.App.ScreenState;
 import com.infolk.game.combat.NPC;
@@ -59,7 +58,9 @@ public class GameScreen extends DefaultScreen {
 
 		mainTable.setBackground(new Image(new Texture(color)).getDrawable());
 
+		//Create a camera so we will be able to follow the player later on
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		//The camera's position has to be set in the center of the viewport
 		camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
 	}
 
@@ -87,12 +88,15 @@ public class GameScreen extends DefaultScreen {
 
 	@Override
     public void render(float delta) {
-		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
 		if (mapController != null) {
+			//We set the camera's position to that of the player in the current MapController on every rendering turn so that it follows
+			//the player's movement
 			camera.position.set(mapController.getPlayer().getX(), mapController.getPlayer().getY(), 0);
 		}
+
+		camera.update();
 
 		super.render(delta);
     }
