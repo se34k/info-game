@@ -40,6 +40,11 @@ public class App extends Game {
 		music.setLooping(true);
 		music.play();
 		music.setVolume(App.MUSIC_VOLUME);
+
+		manager = new GameManager();
+
+		manager.createAndAddMap("test");
+		manager.setCurrentMap("test");
 	}
 
 	public void changeScreen(ScreenState state) {
@@ -50,7 +55,8 @@ public class App extends Game {
 
 			case START:
 				music.stop();
-				this.setScreen(new GameScreen(this));
+				GameScreen screen = new GameScreen(this, manager.getCurrentMap());
+				this.setScreen(screen);
 				break;
 
 			case ABOUT:

@@ -40,8 +40,6 @@ public class GameScreen extends DefaultScreen {
 
 		mainTable.top().left();
 
-		testInit();
-
 		float width = 500;
 		float height = 50;
 		float x = 110;
@@ -64,6 +62,16 @@ public class GameScreen extends DefaultScreen {
 		hudBatch = new SpriteBatch();
 	}
 
+	public GameScreen(final App app, MapController mapController) {
+		this(app);
+
+		setMapController(mapController);
+		//This checks is there to check whether the map has already been initialized, in which case there will be a player
+		if (mapController.getPlayer() == null) {
+			testInit();
+		}
+	}
+
 	private void testInit() {
 		Sprite playerSprite = new Sprite(new Texture(Gdx.files.internal("sprites/janitor_0.png")));
 		Playable player = new Playable("Player", 20, new Sprite(playerSprite));
@@ -71,8 +79,6 @@ public class GameScreen extends DefaultScreen {
 		Sprite obstacleSprite = new Sprite(new Texture(Gdx.files.internal("sprites/badlogic.jpg")));
 		NPC obstacle = new NPC("obst", 20, obstacleSprite, 0, 0);
 		obstacle.setPosition(1000, 500);
-
-		loadMap("");
 
 		mapController.addPlayer(player);
 		mapController.addEntity(obstacle);
@@ -126,7 +132,7 @@ public class GameScreen extends DefaultScreen {
 		setMapController(mc);
 	}
 
-	private void setMapController(MapController mc) {
+	public void setMapController(MapController mc) {
 		mapController = mc;
 	}
 }

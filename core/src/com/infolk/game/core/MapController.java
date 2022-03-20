@@ -40,6 +40,13 @@ public class MapController {
         entities.add(pEntity);
     }
 
+    public void removeEntity(Entity pEntity) {
+        if (player == pEntity) {
+            player = null;
+        }
+        entities.remove(pEntity);
+    }
+
     public void addPlayer(Playable player) {
         addEntity(player);
         this.player = player;

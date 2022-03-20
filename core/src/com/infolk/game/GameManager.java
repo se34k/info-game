@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import com.infolk.game.core.MapController;
 
+/**
+ * @author  Sebastian
+ */
 public class GameManager {
     private ArrayList<MapController> maps;
+    private MapController currentMap;
 
     public GameManager() {
         maps = new ArrayList<>();
@@ -18,7 +22,7 @@ public class GameManager {
     public MapController createAndAddMap(String mapId) {
         MapController map = new MapController(mapId);
         maps.add(map);
-        
+
         return map;
     }
 
@@ -37,6 +41,17 @@ public class GameManager {
     }
 
     public void discardMap(String mapId) {
+        if (currentMap.getMapId().equals(mapId)) {
+            currentMap = null;
+        }
         maps.remove(getMap(mapId));
+    }
+
+    public void setCurrentMap(String mapId) {
+        currentMap = getMap(mapId);
+    }
+
+    public MapController getCurrentMap() {
+        return currentMap;
     }
 }
