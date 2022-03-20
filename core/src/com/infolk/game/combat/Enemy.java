@@ -14,7 +14,7 @@ public abstract class Enemy extends Entity{
     this.reach = reach;
   }
   
-  public void track(Playable player, TiledMap tiledMap){
+  public void track(Playable player){
     if(this.isInAttackreach(player) == false){
       return;
     }
