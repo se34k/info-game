@@ -58,7 +58,8 @@ public class MapController {
             if (!violators.isEmpty()) {
                 e.onCollision(violators);
 
-                cdelta = 1; //Temporary fix - if object already has collided, setting cdelta to 1 will ensure one full step is checked as opposed to only a fraction of that
+                cdelta = 1; // Temporary fix - if object already has collided, setting cdelta to 1 will
+                            // ensure one full step is checked as opposed to only a fraction of that
             }
 
             if (collisions(e.getProjected(cdelta, 1, 0), e).isEmpty()) {
@@ -69,9 +70,9 @@ public class MapController {
             }
 
             /*
-            correctCollisions(e, 0, 1, delta);
-            correctCollisions(e, 1, 0, delta);
-            */
+             * correctCollisions(e, 0, 1, delta);
+             * correctCollisions(e, 1, 0, delta);
+             */
         }
     }
 
@@ -81,7 +82,9 @@ public class MapController {
 
             for (Entity violator : violators) {
                 int tryx = 0;
-                while (entity.overlaps(violator) && entity.getPosition().x != entity.getProjected(delta, (int) entity.getDirection().x * -1, (int) entity.getDirection().y * -1).getX()) {
+                while (entity.overlaps(violator) && entity.getPosition().x != entity
+                        .getProjected(delta, (int) entity.getDirection().x * -1, (int) entity.getDirection().y * -1)
+                        .getX()) {
                     entity.moveBack(new Vector2(xFactor, yFactor));
                     tryx += xFactor;
                 }

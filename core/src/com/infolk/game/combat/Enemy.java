@@ -1,8 +1,7 @@
 package com.infolk.game.combat;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Vector2;
 
 public abstract class Enemy extends Entity {
 
@@ -16,9 +15,9 @@ public abstract class Enemy extends Entity {
     isAttackable = false;
     this.reach = reach;
   }
-  
-  public void track(Playable player){
-    if (this.isInAttackreach(player) == false){
+
+  public void track(Entity player) {
+    if (this.isInAttackreach(player) == false) {
       return;
     }
 
@@ -50,7 +49,7 @@ public abstract class Enemy extends Entity {
   public boolean isAttackable() {
     return isAttackable;
   }
-  
+
   public boolean isInAttackreach(Entity player) {
     return (distanceTo(player) <= reach);
   }

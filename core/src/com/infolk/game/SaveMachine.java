@@ -10,24 +10,19 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author max
  */
 public class SaveMachine {
-    
+
     private static JsonValue saveCache;
-    private static FileHandle saveFile;
     private static JsonValue itemDataCache;
-    private static FileHandle itemDataFile;
     private static JsonValue charDataCache;
-    private static FileHandle charDataFile;
-    
+
     private static Preferences prefs;
-    
+
     // Muss vor dem verwenden aufgerufen werden, um statische Variablen zu
     // initialisieren.
     public static void init() throws IOException {
@@ -36,12 +31,12 @@ public class SaveMachine {
         prefs.putString("itemDataFile", "data/items.json");
         prefs.putString("charDataFile", "data/characters.json");
         prefs.flush();
-        
+
         saveCache = loadFromFile(getFile("saveFile"));
         itemDataCache = loadFromFile(getFile("itemDataFile"));
         charDataCache = loadFromFile(getFile("charDataFile"));
     }
-    
+
     // Fr die init(). Kümmert sich um exceptions n stuff
     private static FileHandle getFile(String fileName) throws IOException {
         String filePath = prefs.getString(fileName, "persistent.json");
@@ -57,24 +52,24 @@ public class SaveMachine {
         }
         return file;
     }
-    
+
     // Lädt den Inhalt der Datei in den statischen Cache
     public static JsonValue loadFromFile(FileHandle file) {
         return (new JsonReader()).parse(file.readString());
     }
-    
+
     // Speichert den Inhalt des statischen Caches innerhalb der Datei
     public static void saveToFile(JsonValue data, FileHandle file) {
         file.writeString(data.asString(), false);
     }
-    
+
     // Speichert einen Wert in Form von JsonValue bei path.
     // path -> siehe loadValue()
     public static void saveValue(JsonValue value, String path) {
         JsonValue child;
         if (path.startsWith("items/")) {
             child = itemDataCache;
-        } else if(path.startsWith("characters")) {
+        } else if (path.startsWith("characters")) {
             child = charDataCache;
         } else {
             child = saveCache;
@@ -87,7 +82,7 @@ public class SaveMachine {
         }
         // child = value;
     }
-    
+
     // Lädt einen Wert in Form von JsonValue bei path.
     // path bescheibt einen pseudo-Dateipfad durch die Json-Objekte.
     // z.B. würde player/inventory/3 das dritte Element des Inventars des
@@ -96,7 +91,7 @@ public class SaveMachine {
         JsonValue child;
         if (path.startsWith("items/")) {
             child = itemDataCache;
-        } else if(path.startsWith("characters")) {
+        } else if (path.startsWith("characters")) {
             child = charDataCache;
         } else {
             child = saveCache;
@@ -110,5 +105,5 @@ public class SaveMachine {
         }
         return child;
     }
-    
+
 }
