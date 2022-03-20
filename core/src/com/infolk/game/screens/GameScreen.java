@@ -29,7 +29,6 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 	protected SpriteBatch hudBatch;
 	private HealthBar bar;
 	private float barWidth = 500, barHeight = barWidth / 10;
-	private float barX = 100, barY = Gdx.graphics.getHeight() - barHeight * 1.3f;
 
 	private GameManager gameManager;
 
@@ -45,6 +44,10 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 				app.changeScreen(ScreenState.INVENTORY);
 			}
 		});
+
+		float barX = 90, barY = Gdx.graphics.getHeight() - barHeight * 1.3f;
+		System.out.println(barY);
+		bar = new HealthBar(barX, barY, barWidth, barHeight, 5, 10);
 
 		mainTable.top().left();
 
@@ -78,8 +81,6 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		Sprite obstacleSprite = new Sprite(new Texture(Gdx.files.internal("sprites/badlogic.jpg")));
 		NPC obstacle = new NPC("obst", 10, obstacleSprite, 0, 0);
 		obstacle.setPosition(300, 200);
-
-		bar = new HealthBar(barX, barY, barWidth, barWidth, player.getHP(), player.getHP());
 
 		mapController.addPlayer(player);
 		mapController.addEntity(obstacle);

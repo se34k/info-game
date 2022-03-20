@@ -20,8 +20,8 @@ public class MainMenuScreen extends DefaultScreen {
 		super();
 
 		int width = (int) (Gdx.graphics.getWidth() * 0.9);
-		int height = (int) (width * 0.075);
-		addImage(mainTable, "gui/logo.png", width, height, 0, 10, true);
+		int height = (int) (width * 0.125);
+		addImage(mainTable, "gui/title.png", width, height, 0, 10, true);
 		addText(mainTable, "An info lk 2022 studios production", 0, 75, true);
 
 		int distance = 100;
@@ -42,7 +42,7 @@ public class MainMenuScreen extends DefaultScreen {
 		}
 
 		mainTable.setBackground(
-			new TextureRegionDrawable(new Texture(Gdx.files.internal("craftacular/raw/craftacular-mockup.png"))));
+				new TextureRegionDrawable(new Texture(Gdx.files.internal("gui/background.png"))));
 	}
 
 	@Override
