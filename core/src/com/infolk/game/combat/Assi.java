@@ -9,8 +9,8 @@ public class Assi extends Enemy{
     super.("Assi", 15, sprite, x, y, 20f);
   }
    
-  public void verfolgen(Entity entity, TiledMap tiledMap){
-    super.track(entity, tiledMap);
+  public void verfolgen(Entity entity){
+    super.track(entity);
   }
   
 }
