@@ -12,8 +12,6 @@ public class Movement {
     private int KEY_DOWN;
     private int KEY_DASH;
 
-    private static int SPEED = 150;
-
     public Movement() {
         KEY_LEFT = Input.Keys.A;
         KEY_UP = Input.Keys.W;
@@ -31,16 +29,16 @@ public class Movement {
         int ySpeed = 0;
 
         if (Gdx.input.isKeyPressed(KEY_LEFT)) {
-            xSpeed -= SPEED;
+            xSpeed -= 1;
         }
         if (Gdx.input.isKeyPressed(KEY_RIGHT)) {
-            xSpeed += SPEED;
+            xSpeed += 1;
         }
         if (Gdx.input.isKeyPressed(KEY_UP)) {
-            ySpeed += SPEED;
+            ySpeed += 1;
         }
         if (Gdx.input.isKeyPressed(KEY_DOWN)) {
-            ySpeed -= SPEED;
+            ySpeed -= 1;
         }
 
         if (Gdx.input.isKeyPressed(KEY_DASH)) {
@@ -49,6 +47,7 @@ public class Movement {
             entity.setDashFactor(1);
         }
 
-        entity.setVelocity(new Vector2(xSpeed, ySpeed));
+        entity.setDirection(new Vector2(xSpeed, ySpeed));
+        // entity.setVelocity(new Vector2(xSpeed, ySpeed));
     }
 }
