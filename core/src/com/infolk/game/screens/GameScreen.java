@@ -12,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.infolk.game.App;
 import com.infolk.game.App.ScreenState;
+import com.infolk.game.combat.Entity;
+import com.infolk.game.combat.EntityObject;
+import com.infolk.game.combat.EntityObject;
 import com.infolk.game.combat.NPC;
 import com.infolk.game.combat.Playable;
 import com.infolk.game.core.GameManager;
@@ -79,7 +82,7 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		Playable player = new Playable("Player", 10, new Sprite(playerSprite));
 
 		Sprite obstacleSprite = new Sprite(new Texture(Gdx.files.internal("sprites/badlogic.jpg")));
-		NPC obstacle = new NPC("obst", 10, obstacleSprite, 0, 0);
+		EntityObject obstacle = new EntityObject("obst", obstacleSprite, 0, 0);
 		obstacle.setPosition(300, 200);
 
 		mapController.addPlayer(player);

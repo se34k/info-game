@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.infolk.game.screens.components.HealthBar;
 
 public abstract class Entity {
     private Vector2 direction;
@@ -14,44 +13,26 @@ public abstract class Entity {
     private Sprite sprite;
 
     private String name;
-    private int hp;
 
     private Rectangle hitbox;
 
-    private HealthBar bar;
-    private float barWidth, barHeight;
-    public boolean displayBar = true;
-
-    protected Entity(String name, int hp, Sprite sprite) {
+    protected Entity(String name, Sprite sprite) {
         this.name = name;
-        this.hp = hp;
 
         // Initialize vector with 0, 0
         direction = new Vector2(0, 0);
         speed = 100;
 
         setSprite(sprite);
-        barWidth = sprite.getWidth();
-        barHeight = barWidth / 5;
 
         hitbox = new Rectangle();
         adjustHitbox();
-
-        bar = new HealthBar(getBarX(), getBarY(), barWidth, barHeight, hp, hp);
     }
 
-    protected Entity(String name, int hp, Sprite sprite, float x, float y) {
-        this(name, hp, sprite);
+    protected Entity(String name, Sprite sprite, float x, float y) {
+        this(name, sprite);
 
         setPosition(x, y);
-    }
-
-    private float getBarX() {
-        return sprite.getX() + sprite.getWidth() / 2 - barWidth / 2;
-    }
-
-    private float getBarY() {
-        return sprite.getY() + sprite.getHeight();
     }
 
     /**
@@ -148,18 +129,6 @@ public abstract class Entity {
      */
     public String getName() {
         return name;
-    }
-
-    public int getHP() {
-        return hp;
-    }
-
-    public void setHP(int hp) {
-        this.hp = hp;
-    }
-
-    public void changeHP(int change) {
-        setHP(hp + change);
     }
 
     /**
@@ -273,12 +242,6 @@ public abstract class Entity {
      */
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
-        if (displayBar) {
-            bar.x = getBarX();
-            bar.y = getBarY();
-            bar.update();
-            bar.draw(batch);
-        }
     }
 
     /**

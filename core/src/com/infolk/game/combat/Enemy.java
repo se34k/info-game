@@ -3,7 +3,7 @@ package com.infolk.game.combat;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public abstract class Enemy extends Entity {
+public abstract class Enemy extends NPC {
 
   private boolean isDead;
   private boolean isAttackable;
@@ -22,7 +22,7 @@ public abstract class Enemy extends Entity {
     }
     
     Vector2 richtung = vectorTo(player); // Richtungsvektor zwischen Player und Gegner
-    
+
     float x = 0;
     float y = 0;
 

@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class DavyCrockett extends Entity {
     public DavyCrockett() {
-        super("Davy Crockett Nuclear Device", 10, new Sprite(new Texture(Gdx.files.internal("sprites/davycrockett.png"))));
+        super("Davy Crockett Nuclear Device", new Sprite(new Texture(Gdx.files.internal("sprites/davycrockett.png"))));
 
         setSpeed(250);
         setDirection(new Vector2(0, 1));
