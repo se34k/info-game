@@ -145,8 +145,8 @@ public abstract class Entity {
      * @param factor        Der Faktor, um den der Schritt zurück getan werden soll.
      */
     public void moveBack(Vector2 factor) {
-        factor.x = factor.x * (getVelocity().x > 0 ? -1 : getVelocity().x < 0 ? 1 : 0);
-        factor.y = factor.y * (getVelocity().y > 0 ? -1 : getVelocity().y < 0 ? 1 : 0);
+        factor.x = factor.x * getDirection().x * -1;
+        factor.y = factor.y * getDirection().y * -1;
 
         move(factor.x, factor.y);
     }
