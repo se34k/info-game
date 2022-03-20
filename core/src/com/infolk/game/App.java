@@ -2,6 +2,7 @@ package com.infolk.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.audio.Music;
 import com.infolk.game.screens.AboutScreen;
 import com.infolk.game.screens.GameScreen;

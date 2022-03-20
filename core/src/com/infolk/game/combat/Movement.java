@@ -48,6 +48,5 @@ public class Movement {
         }
 
         entity.setDirection(new Vector2(xSpeed, ySpeed));
-        // entity.setVelocity(new Vector2(xSpeed, ySpeed));
     }
 }

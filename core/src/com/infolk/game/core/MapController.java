@@ -43,9 +43,10 @@ public class MapController {
     }
 
     public void onLoop(float delta) {
+        //Just for fun - this spawns a new Davy Crockett
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             DavyCrockett dc = new DavyCrockett();
-            dc.setPosition(player.getX() + 50, player.getY() + 50);
+            dc.setPosition(player.getX(), player.getY() + 50);
             addEntity(dc);
         }
 
@@ -59,7 +60,8 @@ public class MapController {
                 e.onCollision(violators);
 
                 cdelta = 1; // Temporary fix - if object already has collided, setting cdelta to 1 will
-                            // ensure one full step is checked as opposed to only a fraction of that
+                            // ensure one full step is checked as opposed to only a fraction of that -
+                            // this will allow for a resolution of the collision in most cases
             }
 
             if (collisions(e.getProjected(cdelta, 1, 0), e).isEmpty()) {

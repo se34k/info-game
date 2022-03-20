@@ -60,9 +60,11 @@ public abstract class DefaultScreen implements Screen {
         ScreenUtils.clear(Color.BLACK);
         stage.act(delta);
         stage.draw();
+
         batch.begin();
         draw();
         batch.end();
+        
         update(delta);
     }
 
