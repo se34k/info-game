@@ -59,5 +59,4 @@ public class MainMenuScreen extends DefaultScreen {
 	public void update(float delta) {
 
 	}
-
 }
