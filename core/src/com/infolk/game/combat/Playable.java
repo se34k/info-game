@@ -2,7 +2,7 @@ package com.infolk.game.combat;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class Playable extends Entity {
+public class Playable extends MortalBeing {
     private int dashFactor;
     private float energy;
 
