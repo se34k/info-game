@@ -14,21 +14,27 @@ import com.infolk.game.App;
 import com.infolk.game.App.ScreenState;
 import com.infolk.game.combat.NPC;
 import com.infolk.game.combat.Playable;
+import com.infolk.game.core.GameManager;
 import com.infolk.game.core.MapController;
+import com.infolk.game.core.interfaces.MapChangeListener;
 import com.infolk.game.screens.components.HealthBar;
 
 /**
  * @author Mihai
  */
-public class GameScreen extends DefaultScreen {
+public class GameScreen extends DefaultScreen implements MapChangeListener {
 	private OrthographicCamera camera;
 	private MapController mapController;
 
 	protected SpriteBatch hudBatch;
 	private HealthBar bar;
 
+	private GameManager gameManager;
+
 	public GameScreen(final App app) {
 		super();
+
+		this.gameManager = app.getGameManager();
 
 		addButton(mainTable, "||", 0, 0, 75, 75, false).addListener(new ClickListener() {
 			@Override
@@ -60,16 +66,14 @@ public class GameScreen extends DefaultScreen {
 
 		//This batch is independent from the camera so it does not move with the player
 		hudBatch = new SpriteBatch();
-	}
 
-	public GameScreen(final App app, MapController mapController) {
-		this(app);
+		setMapController(app.getGameManager().getCurrentMap());
 
-		setMapController(mapController);
-		//This checks is there to check whether the map has already been initialized, in which case there will be a player
 		if (mapController.getPlayer() == null) {
 			testInit();
 		}
+
+		app.getGameManager().registerMapChangeListener(this);
 	}
 
 	private void testInit() {
@@ -113,6 +117,7 @@ public class GameScreen extends DefaultScreen {
 	@Override
 	public void cleanUp() {
 		hudBatch.dispose();
+		gameManager.unregisterMapChangeListener(this);
 	}
 
 	@Override
@@ -126,13 +131,13 @@ public class GameScreen extends DefaultScreen {
 		bar.update();
 	}
 
-	public void loadMap(String mapId) {
-		MapController mc = new MapController(mapId);
-
-		setMapController(mc);
-	}
-
 	public void setMapController(MapController mc) {
 		mapController = mc;
+	}
+
+	@Override
+	public void onMapChange(MapController newMap) {
+		//This listener is used to ensure the displayed map is changed as soon as it is changed in the GameManager
+		setMapController(newMap);
 	}
 }
