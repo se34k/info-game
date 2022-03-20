@@ -81,6 +81,10 @@ public class App extends Game {
 		}
 	}
 
+	public GameManager getGameManager() {
+		return manager;
+	}
+
 	public void dispose() {
 	}
 
