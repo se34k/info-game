@@ -9,8 +9,8 @@ public class Ratte extends Enemy{
     super.("Ratte", 5, sprite, x, y, 30f);
   }
    
-  public void verfolgen(Playable player, TiledMap tiledMap){
-    super.track(player, tiledMap);
+  public void verfolgen(Playable player){
+    super.track(player);
   }
   
 }
