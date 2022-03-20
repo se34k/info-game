@@ -2,14 +2,14 @@
  * © Max Nijenhuis
  * java-mn@mnijenhuis.de
  */
-package de.nijenhuis.gdxgame;
+package com.infolk.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonValue.ValueType;
 
 /**
  *
@@ -20,7 +20,7 @@ public class SaveMachine {
     private static JsonValue cache;
     private static FileHandle saveFile;
     
-    public static SaveMachine() {
+    public SaveMachine() {
         Preferences prefs = Gdx.app.getPreferences("gdxgame");
         String filePath = prefs.getString("saveFile", "persistent.json");
         saveFile = Gdx.files.internal(filePath);
@@ -39,18 +39,18 @@ public class SaveMachine {
         JsonValue child = cache;
         for(String s : path.split("/")) {
             if(!child.has(s)) {
-                child.addChild(s, new JsonValue(new Object()));
+                child.addChild(s, new JsonValue((ValueType) new Object()));
             }
             child = child.get(s);
         }
-        child = value;
+        // child = value;
     }
     
     public static JsonValue loadValue(String path) {
         JsonValue child = cache;
         for(String s : path.split("/")) {
             if(!child.has(s)) {
-                child.addChild(s, new JsonValue(new Object()));
+                child.addChild(s, new JsonValue((ValueType) new Object()));
             }
             child = child.get(s);
         }

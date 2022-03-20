@@ -8,10 +8,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
-    private Vector2 velocity;
     private Vector2 direction;
     private float speed;
-    public Sprite sprite;
+    private Sprite sprite;
 
     private String name;
     private int hp;
@@ -23,49 +22,107 @@ public abstract class Entity {
         this.hp = hp;
 
         // Initialize vector with 0, 0
-        velocity = new Vector2(0, 0);
         direction = new Vector2(0, 0);
-        speed = 0;
+        speed = 100;
 
-        this.sprite = sprite;
+        setSprite(sprite);
 
-        hitbox = new Rectangle(getX(), getY(), this.sprite.getWidth(), this.sprite.getHeight());
+        hitbox = new Rectangle();
+        adjustHitbox();
     }
 
     protected Entity(String name, int hp, Sprite sprite, float x, float y) {
-        this.name = name;
-        this.hp = hp;
-
-        // Initialize vector with 0, 0
-        velocity = new Vector2(0, 0);
-
-        this.sprite = sprite;
-
-        hitbox = new Rectangle(getX(), getY(), this.sprite.getWidth(), this.sprite.getHeight());
+        this(name, hp, sprite);
 
         setPosition(x, y);
     }
 
+    /**
+     * Sets this entity's sprite
+     * 
+     * @param sprite
+     */
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    private void adjustHitbox() {
+        hitbox.setX(getX());
+        hitbox.setY(getY());
+        hitbox.setWidth(sprite.getWidth());
+        hitbox.setHeight(sprite.getHeight());
+    }
+
+    /**
+     * Gibt ein Rectangle zurück, das der um einen über den Zeitraum delta gemachten Schritt bewegten Hitbox des Entities entspricht.
+     * Dieses Rectangle kann mittels der Parameter xFactor und yFactor von der Position her modifiziert werden, also etwa um den zwei-
+     * fachen Schritt bewegt werden, wenn man für xFactor und yFactor 2 übergibt.
+     * 
+     * @param delta         Die Zeit, die für die Ermittlung der Größe des Schritts genutzt wird
+     * @param xFactor       Der Faktor, um den der Schritt in x-Achsen-Richtung multipliziert wird
+     * @param yFactor       Der Faktor, um den der Schritt in y-Achsen-Richtung multipliziert wird
+     * 
+     * @return              Das Rectangle, das der bewegten Hitbox des Entities entspricht
+     */
     public Rectangle getProjected(float delta, int xFactor, int yFactor) {
-        return new Rectangle(getX() + velocity.x * delta * xFactor, getY() + velocity.y * delta * yFactor, hitbox.getWidth(), hitbox.getHeight());
+        return new Rectangle(getX() + getVelocity().x * delta * xFactor, getY() + getVelocity().y * delta * yFactor, hitbox.getWidth(), hitbox.getHeight());
     }
 
-    public void setVelocity(Vector2 velocity) {
-        this.velocity = velocity;
+    /**
+     * Setzt die Geschwindigkeit des Entities
+     * 
+     * @param speed         Die neue Geschwindigkeit des Entities
+     */
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 
+    /**
+     * Gibt die gerichtete Geschwindigkeit des Entities als Vector2 zurück
+     * 
+     * @return              Die gerichtete Geschwindigkeit des Entities
+     */
     public Vector2 getVelocity() {
-        return velocity;
+        return new Vector2(direction.x * speed, direction.y * speed);
     }
 
+    /**
+     * Gibt den Richtungsvektor des Entities zurück.
+     * 
+     * @return              Der Richtungsvektor des Entities
+     */
+    public Vector2 getDirection() {
+        return direction;
+    }
+
+    /**
+     * Gibt die Hitbox des Entities zurück.
+     * 
+     * @return              Die Hitbox des Charakters
+     */
     public Rectangle getHitbox() {
         return hitbox;
     }
 
+    /**
+     * Gibt zurück, ob das Entity die übergebenen Entity berührt.
+     * 
+     * @param entity        Die zu prüfende Entity
+     * @return              Ein boolean, der angibt, ob das Entity berührt wird
+     */
     public boolean overlaps(Entity entity) {
         return hitbox.overlaps(entity.getHitbox());
     }
 
+    /**
+     * Gibt den Namen des Entity zurück
+     * 
+     * @return              Der Entity-Name
+     */
     public String getName() {
         return name;
     }
@@ -82,34 +139,80 @@ public abstract class Entity {
         setHP(hp + change);
     }
 
+    /**
+     * Bewegt die Entity um seine umgekehrte Richtung, kann mit factor multipliziert werden.
+     * 
+     * @param factor        Der Faktor, um den der Schritt zurück getan werden soll.
+     */
     public void moveBack(Vector2 factor) {
-        factor.x = factor.x * (velocity.x > 0 ? -1 : velocity.x < 0 ? 1 : 0);
-        factor.y = factor.y * (velocity.y > 0 ? -1 : velocity.y < 0 ? 1 : 0);
+        factor.x = factor.x * (getVelocity().x > 0 ? -1 : getVelocity().x < 0 ? 1 : 0);
+        factor.y = factor.y * (getVelocity().y > 0 ? -1 : getVelocity().y < 0 ? 1 : 0);
 
         move(factor.x, factor.y);
     }
 
+    /**
+     * Bewegt das Entity entsprechend seiner Geschwindigkeit und die in delta übergebene vergangene Zeit.
+     * 
+     * @param delta         Die vergangene Zeit seit dem letzten Schritt
+     */
     public void move(float delta) {
-        move(velocity.x * delta, velocity.y * delta);
+        move(getVelocity().x * delta, getVelocity().y * delta);
     }
 
+    /**
+     * Bewegt das Entity horizontal entsprechend seiner Geschwindigkeit und der in delta übergebenen Zeit.
+     * 
+     * @param delta         Die vergangene Zeit seit dem letzten Schritt
+     */
     public void moveHoriz(float delta) {
-        move(velocity.x * delta, 0);
+        move(getVelocity().x * delta, 0);
     }
 
+    /**
+     * Bewegt das Entity vertikal entsprechend seiner Geschwindigkeit und der in delta übergebenen Zeit.
+     * 
+     * @param delta         Die vergangene Zeit seit dem letzten Schritt
+     */
     public void moveVert(float delta) {
-        move(0, velocity.y * delta);
+        move(0, getVelocity().y * delta);
     }
 
+    /**
+     * Ändert die Position des Entities um die in x und y angegebenen Schritte
+     * 
+     * @param x             Die Zahl, um die die x-Position geändert werden soll
+     * @param y             Die Zahl, um die die y-Position geändert werden soll
+     */
     public void move(float x, float y) {
         setPosition(getX() + x, getY() + y);
     }
 
+    /**
+     * Setzt die Richtung des Entities
+     * 
+     * @param direction     Ein Vector2 mit der Richtung. Sollte als Koordinaten nur Ganzzahlen im Intervall [-1; 1] besitzen.
+     */
+    public void setDirection(Vector2 direction) {
+        this.direction = direction;
+    }
+
+    /**
+     * Setzt die Position des Entities auf x und y
+     * 
+     * @param x             Die zu setzende x-Position
+     * @param y             Die zu setzende y-Position
+     */
     public void setPosition(float x, float y) {
         sprite.setPosition(x, y);
         hitbox.setPosition(x, y);
     }
 
+    /**
+     * Bewegt das Entity um den übergebenen x-Wert
+     * 
+     * @param x             Die x-Länge des Schritts
+     */
     public void moveX(float x) {
         move(x, 0);
     }
@@ -126,10 +229,20 @@ public abstract class Entity {
         return this.sprite.getY();
     }
 
-    public float[] getPosition() {
-        return new float[] { getX(), getY() };
+    /**
+     * Gibt die aktuelle Position des Entities als Vector2 zurück.
+     * 
+     * @return              Ein Vector2 mit der aktuellen Position
+     */
+    public Vector2 getPosition() {
+        return new Vector2(getX(), getY());
     }
 
+    /**
+     * Zeichnet das Sprite des Entities.
+     * 
+     * @param batch         Der zu nutzende SpriteBatch
+     */
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }
@@ -142,13 +255,18 @@ public abstract class Entity {
      * 
      * @param entity The entity to compare to
      * 
-     * @return A float value with the distance between the two entities
+     * @return              A float value with the distance between the two entities
      */
     public float distanceTo(Entity entity) {
         // Pythagoras is our friend
         return (float) Math.sqrt(Math.pow(entity.getX() - getX(), 2) + Math.pow(entity.getY() - getY(), 2));
     }
 
+    /**
+     * Wird aufgerufen, wenn das Entity mit anderen Entities kollidiert
+     * 
+     * @param targets       Die kollidierenden Entities
+     */
     public void onCollision(ArrayList<Entity> targets) {
         // Placeholder
     }
