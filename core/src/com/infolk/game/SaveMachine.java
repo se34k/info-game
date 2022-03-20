@@ -2,7 +2,7 @@
  * © Max Nijenhuis
  * java-mn@mnijenhuis.de
  */
-package de.nijenhuis.gdxgame;
+package com.infolk.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
