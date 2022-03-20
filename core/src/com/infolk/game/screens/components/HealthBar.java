@@ -34,9 +34,7 @@ public class HealthBar {
 
     public void draw(SpriteBatch batch) {
         for (int i = 0; i < hearts.size(); i++) {
-            batch.draw(hearts.get(i), x + (width / maxHealth * i) - (int) (width / maxHealth * 0.5), y,
-                    (width / maxHealth),
-                    height);
+            batch.draw(hearts.get(i), x + (width / maxHealth * i), y, (width / maxHealth), height);
         }
     }
 
