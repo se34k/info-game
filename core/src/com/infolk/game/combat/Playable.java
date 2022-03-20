@@ -11,6 +11,8 @@ public class Playable extends Entity {
 
         dashFactor = 1;
         energy = 100f;
+
+        setSpeed(200);
     }
 
     @Override
