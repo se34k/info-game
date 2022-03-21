@@ -89,7 +89,7 @@ public class MapController {
         for (Entity e : entities) {
             float cdelta = delta;
 
-            ArrayList<Rectangle> violators = collisions(e);
+            ArrayList<Entity> violators = collisions(e);
             if (!violators.isEmpty()) {
                 // e.onCollision(violators);
 
@@ -107,19 +107,20 @@ public class MapController {
         }
     }
 
-    public ArrayList<Rectangle> collisions(Entity entity) {
+    public ArrayList<Entity> collisions(Entity entity) {
         return collisions(entity.getHitbox(), entity);
     }
 
-    public ArrayList<Rectangle> collisions(Rectangle shape, Entity entity) {
-        ArrayList<Rectangle> violators = new ArrayList<>();
+    public ArrayList<Entity> collisions(Rectangle shape, Entity entity) {
+        ArrayList<Entity> violators = new ArrayList<>();
 
         for (Entity e : entities) {
             if (shape.overlaps(e.getHitbox()) && e != entity) {
-                violators.add(e.getHitbox());
+                violators.add(e);
             }
         }
 
+        /*
         if (map.getLayers().size() > 1) {
             MapLayer collisionLayer = map.getLayers().get(1);
             MapObjects objects = collisionLayer.getObjects();
@@ -130,6 +131,7 @@ public class MapController {
                 }
             }
         }
+        */
     
         return violators;
     }
