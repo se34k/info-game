@@ -7,12 +7,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-
-import com.infolk.game.combat.DavyCrockett;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.infolk.game.combat.Entity;
 import com.infolk.game.combat.Playable;
 
@@ -75,12 +76,41 @@ public class MapController {
     public void onLoop(float delta) {
         //Just for fun - this spawns a new Davy Crockett
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            DavyCrockett dc = new DavyCrockett();
-            dc.setPosition(player.getX(), player.getY() + 50);
-            addEntity(dc);
+           
         }
 
         move.processKeys(player);
+
+        System.out.println(player.getVelocity().angleDeg());
+        // Testing
+        if(Gdx.input.isKeyJustPressed(Input.Keys.G)) {
+            Rectangle hitboxAttack = new Rectangle(0,0,0,0);
+            System.out.println("ATTACKING");
+            switch((int)player.getVelocity().angleDeg()) {
+                case 0:
+                    hitboxAttack = new Rectangle(player.getX() + 30f, player.getY(), 50f, 50f);
+                break;
+                case 90:
+                    hitboxAttack = new Rectangle(player.getX(), player.getY() + 30f, 50f, 50f);
+                break;
+                case 180:
+                    hitboxAttack = new Rectangle(player.getX() - 30f, player.getY(), 50f, 50f);
+                break;
+                case 270:
+                    hitboxAttack = new Rectangle(player.getX(), player.getY() - 30f, 50f, 50f);
+                break;
+            }
+
+            ArrayList<Entity> overlaps = collisions(hitboxAttack, player);
+            for (Entity entity : overlaps) {
+                entity.changeHP(-1);
+                System.out.println(entity.getName());
+                if(entity.getHP() <= 0) {
+                   entities.remove(entity);
+                }
+            }
+        }
+        //
 
         for (Entity e : entities) {
             float cdelta = delta;

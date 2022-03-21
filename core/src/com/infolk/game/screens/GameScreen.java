@@ -79,7 +79,7 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		Playable player = new Playable("Player", 10, new Sprite(playerSprite), 0, 0);
 
 		Sprite obstacleSprite = new Sprite(new Texture(Gdx.files.internal("sprites/badlogic.jpg")));
-		EntityObject obstacle = new EntityObject("obst", obstacleSprite, 300, 300);
+		EntityObject obstacle = new EntityObject("obst", obstacleSprite, 300, 300, 5);
 
 		mapController.addPlayer(player);
 		mapController.addEntity(obstacle);
