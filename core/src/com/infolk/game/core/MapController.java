@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -43,10 +44,10 @@ public class MapController {
         AssetManager assetManager = new AssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         
-        assetManager.load("maps/real/fgh.tmx", TiledMap.class);
+        assetManager.load("maps/real/buero.tmx", TiledMap.class);
         assetManager.finishLoading();
 
-        map = assetManager.get("maps/real/fgh.tmx");
+        map = assetManager.get("maps/real/buero.tmx");
 
         renderer = new OrthogonalTiledMapRenderer(map, 4f);
     }
@@ -120,7 +121,7 @@ public class MapController {
         }
 
         if (map.getLayers().size() > 1) {
-            TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get(1);
+            MapLayer collisionLayer = map.getLayers().get(1);
             MapObjects objects = collisionLayer.getObjects();
     
             for (RectangleMapObject rmo : objects.getByType(RectangleMapObject.class)) {

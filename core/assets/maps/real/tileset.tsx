@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.8" tiledversion="1.8.2" name="Tileset" tilewidth="16" tileheight="16" tilecount="704" columns="22">
  <editorsettings>
-  <export target="G:/Downloads_G/TimixerHD/Sprites/Maps/Tileset..tsx" format="tsx"/>
+  <export target="tileset.tsx" format="tsx"/>
  </editorsettings>
- <image source="G:/Downloads_G/TimixerHD/Tileset.png" width="352" height="512"/>
+ <image source="tileset.png" width="352" height="512"/>
  <tile id="3">
   <objectgroup draworder="index" id="2">
    <object id="4" x="8" y="0.0625" width="8" height="16"/>
