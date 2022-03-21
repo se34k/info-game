@@ -7,7 +7,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -85,9 +88,9 @@ public class MapController {
         for (Entity e : entities) {
             float cdelta = delta;
 
-            ArrayList<Entity> violators = collisions(e);
+            ArrayList<Rectangle> violators = collisions(e);
             if (!violators.isEmpty()) {
-                e.onCollision(violators);
+                // e.onCollision(violators);
 
                 cdelta = 1; // Temporary fix - if object already has collided, setting cdelta to 1 will
                             // ensure one full step is checked as opposed to only a fraction of that -
@@ -103,27 +106,30 @@ public class MapController {
         }
     }
 
-    public ArrayList<Entity> collisions(Entity entity) {
-        ArrayList<Entity> violators = new ArrayList<>();
-
-        for (Entity e : entities) {
-            if (e.overlaps(entity) && e != entity) {
-                violators.add(e);
-            }
-        }
-
-        return violators;
+    public ArrayList<Rectangle> collisions(Entity entity) {
+        return collisions(entity.getHitbox(), entity);
     }
 
-    public ArrayList<Entity> collisions(Rectangle shape, Entity entity) {
-        ArrayList<Entity> violators = new ArrayList<>();
+    public ArrayList<Rectangle> collisions(Rectangle shape, Entity entity) {
+        ArrayList<Rectangle> violators = new ArrayList<>();
 
         for (Entity e : entities) {
             if (shape.overlaps(e.getHitbox()) && e != entity) {
-                violators.add(e);
+                violators.add(e.getHitbox());
             }
         }
 
+        if (map.getLayers().size() > 1) {
+            TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get(1);
+            MapObjects objects = collisionLayer.getObjects();
+    
+            for (RectangleMapObject rmo : objects.getByType(RectangleMapObject.class)) {
+                if (shape.overlaps(rmo.getRectangle())) {
+                    violators.add(rmo.getRectangle());
+                }
+            }
+        }
+    
         return violators;
     }
 
