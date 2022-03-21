@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class DavyCrockett extends MortalBeing {
     public DavyCrockett() {
-        super("Davy Crockett Nuclear Device",
+        super("Davy Crockett Nuclear Device", 5,
                 new Sprite(new Texture(Gdx.files.internal("sprites/davycrockett.png"))));
 
         setSpeed(250);

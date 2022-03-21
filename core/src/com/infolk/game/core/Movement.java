@@ -1,8 +1,10 @@
-package com.infolk.game.combat;
+package com.infolk.game.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.infolk.game.combat.Entity;
+import com.infolk.game.combat.Playable;
 
 public class Movement {
 
