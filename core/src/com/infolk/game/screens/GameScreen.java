@@ -58,7 +58,7 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		// mainTable.setBackground(new Image(new Texture(color)).getDrawable());
 
 		// Create a camera so we will be able to follow the player later on
-		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera = new OrthographicCamera(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
 		// The camera's position has to be set in the center of the viewport
 		camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
 
