@@ -12,9 +12,8 @@ public class HealthBar {
 
     private ArrayList<Texture> hearts;
 
-    private static Texture txt = new Texture(Gdx.files.internal("healthbar/heart.png"));
-    private static Texture txt2 = new Texture(Gdx.files.internal("healthbar/border.png"));
-
+    private Texture heart = new Texture(Gdx.files.internal("healthbar/heart.png"));
+    private Texture border = new Texture(Gdx.files.internal("healthbar/border.png"));
 
     public HealthBar(float x, float y, float width, float height, float currentHealth, float maxHealth) {
         this.x = x;
@@ -26,13 +25,7 @@ public class HealthBar {
 
         hearts = new ArrayList<>();
 
-        for (int i = 0; i < maxHealth; i++) {
-            if (i <= currentHealth) {
-                hearts.add(txt);
-            } else {
-                hearts.add(txt2);
-            }
-        }
+        update();
     }
 
     public void draw(SpriteBatch batch) {
@@ -46,9 +39,9 @@ public class HealthBar {
 
         for (int i = 0; i < maxHealth; i++) {
             if (i <= currentHealth) {
-                hearts.add(txt);
+                hearts.add(heart);
             } else {
-                hearts.add(txt2);
+                hearts.add(border);
             }
         }
     }

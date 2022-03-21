@@ -5,6 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+
 import com.infolk.game.core.GameManager;
 import com.infolk.game.screens.AboutScreen;
 import com.infolk.game.screens.GameScreen;
@@ -45,6 +49,13 @@ public class App extends Game {
 		music.setLooping(true);
 		music.play();
 		music.setVolume(App.MUSIC_VOLUME);
+
+		Pixmap pixmap = new Pixmap(64, 64, Pixmap.Format.RGBA8888);
+		Texture texture = new Texture(Gdx.files.internal("gui/cursor.png"));
+		texture.getTextureData().prepare();
+		pixmap.drawPixmap(texture.getTextureData().consumePixmap(), 0, 0);
+		Cursor cursor = Gdx.graphics.newCursor(pixmap, 32, 20);
+		Gdx.graphics.setCursor(cursor);
 
 		manager = new GameManager();
 
