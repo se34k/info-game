@@ -7,7 +7,11 @@ public class Playable extends MortalBeing {
     private float energy;
 
     public Playable(String name, int hp, Sprite sprite) {
-        super(name, hp, sprite);
+        this(name, hp, sprite, 0, 0);
+    }
+
+    public Playable(String name, int hp, Sprite sprite, float x, float y) {
+        super(name, hp, sprite, x, y);
 
         dashFactor = 1;
         energy = 100f;

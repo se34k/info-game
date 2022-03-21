@@ -36,6 +36,7 @@ public class HealthBar {
 
     public void update() {
         hearts.clear();
+
         for (int i = 0; i < maxHealth; i++) {
             if (i <= currentHealth) {
                 hearts.add(heart);

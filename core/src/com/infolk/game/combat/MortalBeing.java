@@ -37,6 +37,7 @@ public class MortalBeing extends Entity {
         return getSprite().getY() + getSprite().getHeight();
     }
 
+    @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
         

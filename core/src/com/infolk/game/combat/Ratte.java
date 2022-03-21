@@ -8,8 +8,4 @@ public class Ratte extends Enemy {
     public Ratte(float x, float y){
         super("Ratte", 5, new Sprite(new Texture(Gdx.files.internal("Ratte.png"))), x, y, 30f);
     }
-    
-    public void verfolgen(Entity entity) {
-        track(entity);
-    }
 }
