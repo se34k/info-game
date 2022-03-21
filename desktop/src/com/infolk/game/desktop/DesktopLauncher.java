@@ -12,11 +12,11 @@ public class DesktopLauncher {
 	public static void main(String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Janitor Tales";
-		config.width = 1280;
-		config.height = 720;
+		config.width = 1920;
+		config.height = 1080;
 		config.x = -1;
 		config.y = -1;
-		config.fullscreen = false;
+		config.fullscreen = true;
 		config.addIcon("icons/icon.png", FileType.Internal);
 		new LwjglApplication(new App(), config);
 	}
