@@ -55,7 +55,7 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		color.setColor(Color.WHITE);
 		color.fill();
 
-		mainTable.setBackground(new Image(new Texture(color)).getDrawable());
+		// mainTable.setBackground(new Image(new Texture(color)).getDrawable());
 
 		// Create a camera so we will be able to follow the player later on
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -76,11 +76,10 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 
 	private void testInit() {
 		Sprite playerSprite = new Sprite(new Texture(Gdx.files.internal("sprites/janitor_0.png")));
-		Playable player = new Playable("Player", 10, new Sprite(playerSprite));
+		Playable player = new Playable("Player", 10, new Sprite(playerSprite), 0, 0);
 
 		Sprite obstacleSprite = new Sprite(new Texture(Gdx.files.internal("sprites/badlogic.jpg")));
-		EntityObject obstacle = new EntityObject("obst", obstacleSprite, 0, 0);
-		obstacle.setPosition(300, 200);
+		EntityObject obstacle = new EntityObject("obst", obstacleSprite, 300, 300);
 
 		mapController.addPlayer(player);
 		mapController.addEntity(obstacle);
@@ -105,12 +104,19 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
+		if (mapController != null) { 
+			mapController.renderer.setView(camera);
+            // mapController.renderer.render();
+		}
+
 		super.render(delta);
 
 		// The health bar is rendered as part of hudBatch so it doesn't move
 		hudBatch.begin();
 		bar.draw(hudBatch);
 		hudBatch.end();
+
+		stage.draw();
 	}
 
 	@Override

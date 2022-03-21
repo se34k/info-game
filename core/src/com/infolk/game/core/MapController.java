@@ -4,7 +4,13 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 import com.infolk.game.combat.DavyCrockett;
@@ -23,6 +29,10 @@ public class MapController {
 
     private Movement move;
 
+    private TiledMap map;
+    private AssetManager aman;
+    public OrthogonalTiledMapRenderer renderer;
+
     public MapController(String mapId) {
         entities = new ArrayList<>();
 
@@ -30,6 +40,18 @@ public class MapController {
 
         this.mapId = mapId;
         // TODO: Load map data according to mapId parameter
+
+        // System.out.println(Gdx.files.internal("maps/new/Map.xml").exists());
+
+        AssetManager assetManager = new AssetManager();
+        assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        
+        assetManager.load("maps/beauty/map1.tmx", TiledMap.class);
+        assetManager.finishLoading();
+
+        map = assetManager.get("maps/beauty/map1.tmx");
+
+        renderer = new OrthogonalTiledMapRenderer(map);
     }
 
     public String getMapId() {
@@ -112,6 +134,8 @@ public class MapController {
     }
 
     public void draw(SpriteBatch batch) {
+        renderer.render();
+        
         for (Entity entity : entities) {
             entity.draw(batch);
         }

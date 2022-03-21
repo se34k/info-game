@@ -9,8 +9,4 @@ public class Assi extends Enemy {
   public Assi(float x, float y) {
     super("Assi", 15, new Sprite(new Texture(Gdx.files.internal("Assi.png"))), x, y, 10);
   }
-
-  public void verfolgen(Entity entity) {
-    super.track(entity);
-  }
 }

@@ -9,8 +9,4 @@ public class Ninja extends Enemy {
   public Ninja(float x, float y) {
     super("Ninja", 20, new Sprite(new Texture(Gdx.files.internal("Ninja.png"))), x, y, 40f);
   }
-   
-  public void verfolgen(Entity entity) {
-    track(entity);
-  }
 }
