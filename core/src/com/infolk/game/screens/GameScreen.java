@@ -106,7 +106,6 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 
 		if (mapController != null) {
 			mapController.renderer.setView(camera);
-			// mapController.renderer.render();
 		}
 
 		super.render(delta);
