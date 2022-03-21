@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import com.infolk.game.App;
@@ -58,7 +57,8 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		// mainTable.setBackground(new Image(new Texture(color)).getDrawable());
 
 		// Create a camera so we will be able to follow the player later on
-		camera = new OrthographicCamera(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
+		camera = new OrthographicCamera(Gdx.graphics.getWidth() / App.CAMERA_SCALE,
+				Gdx.graphics.getHeight() / App.CAMERA_SCALE);
 		// The camera's position has to be set in the center of the viewport
 		camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
 
@@ -104,9 +104,8 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
-		if (mapController != null) { 
+		if (mapController != null) {
 			mapController.renderer.setView(camera);
-            // mapController.renderer.render();
 		}
 
 		super.render(delta);

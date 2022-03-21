@@ -7,13 +7,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.infolk.game.combat.Entity;
 import com.infolk.game.combat.Playable;
 
@@ -41,10 +38,10 @@ public class MapController {
         AssetManager assetManager = new AssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         
-        assetManager.load("maps/real/fgh.tmx", TiledMap.class);
+        assetManager.load("maps/real/buero.tmx", TiledMap.class);
         assetManager.finishLoading();
 
-        map = assetManager.get("maps/real/fgh.tmx");
+        map = assetManager.get("maps/real/buero.tmx");
 
         renderer = new OrthogonalTiledMapRenderer(map, 4f);
     }
@@ -117,7 +114,7 @@ public class MapController {
 
             ArrayList<Entity> violators = collisions(e);
             if (!violators.isEmpty()) {
-                e.onCollision(violators);
+                // e.onCollision(violators);
 
                 cdelta = 1; // Temporary fix - if object already has collided, setting cdelta to 1 will
                             // ensure one full step is checked as opposed to only a fraction of that -
@@ -134,15 +131,7 @@ public class MapController {
     }
 
     public ArrayList<Entity> collisions(Entity entity) {
-        ArrayList<Entity> violators = new ArrayList<>();
-
-        for (Entity e : entities) {
-            if (e.overlaps(entity) && e != entity) {
-                violators.add(e);
-            }
-        }
-
-        return violators;
+        return collisions(entity.getHitbox(), entity);
     }
 
     public ArrayList<Entity> collisions(Rectangle shape, Entity entity) {
@@ -154,6 +143,19 @@ public class MapController {
             }
         }
 
+        /*
+        if (map.getLayers().size() > 1) {
+            MapLayer collisionLayer = map.getLayers().get(1);
+            MapObjects objects = collisionLayer.getObjects();
+    
+            for (RectangleMapObject rmo : objects.getByType(RectangleMapObject.class)) {
+                if (shape.overlaps(rmo.getRectangle())) {
+                    violators.add(rmo.getRectangle());
+                }
+            }
+        }
+        */
+    
         return violators;
     }
 

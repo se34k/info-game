@@ -41,6 +41,8 @@ public class App extends Game {
 	private ScreenState lastScreen;
 	private ScreenState currentScreen;
 
+	public static int CAMERA_SCALE = 3;
+
 	@Override
 	public void create() {
 		changeScreen(ScreenState.MENU);

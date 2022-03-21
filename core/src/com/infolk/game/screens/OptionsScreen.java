@@ -20,9 +20,9 @@ public class OptionsScreen extends DefaultScreen {
         int width = (int) (Gdx.graphics.getWidth() * 0.6);
         int height = (int) (width * 0.2);
         addImage(mainTable, "gui/options.png", width, height, 0, 10, true);
-        addText(mainTable, "Remind Mihai to implement this...", 0, 50, true);
+        addText(mainTable, "Remind Mihai to implement this...", 0, 25, true);
 
-        addText(mainTable, "Music Volume:", 100, 20, true);
+        addText(mainTable, "Music Volume:", 25, 20, true);
 
         final Slider musicSlider = addSlider(mainTable, 0, 1, 0.01f, 0, 25, true);
         musicSlider.setVisualPercent(App.MUSIC_VOLUME);
@@ -41,9 +41,9 @@ public class OptionsScreen extends DefaultScreen {
             }
         });
 
-        addText(mainTable, "Effects Volume:", 100, 20, true);
+        addText(mainTable, "Effects Volume:", 50, 20, true);
 
-        final Slider effectsSlider = addSlider(mainTable, 0, 1, 0.01f, 0, 50, true);
+        final Slider effectsSlider = addSlider(mainTable, 0, 1, 0.01f, 0, 25, true);
         effectsSlider.setVisualPercent(App.EFFECTS_VOLUME);
         effectsSlider.addListener(new ChangeListener() {
             @Override
@@ -52,7 +52,23 @@ public class OptionsScreen extends DefaultScreen {
             }
         });
 
-        addButton(mainTable, "Back", 100, 100, 300, 75, true).addListener(new ClickListener() {
+        addText(mainTable, "Camera Scale:", 50, 20, true);
+
+        final Slider scaleSlider = addSlider(mainTable, 0, 1, 0.01f, 0, 25, true);
+        scaleSlider.setVisualPercent((App.CAMERA_SCALE / 100f) * 25f);
+        scaleSlider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                float baseValue = scaleSlider.getValue();
+                baseValue *= 100;
+                App.CAMERA_SCALE = (int) (baseValue / 25);
+                if (App.CAMERA_SCALE < 1)
+                    App.CAMERA_SCALE = 1;
+                System.out.println(App.CAMERA_SCALE);
+            }
+        });
+
+        addButton(mainTable, "Back", 0, 0, 300, 75, true).addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
