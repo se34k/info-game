@@ -55,7 +55,7 @@ public class OptionsScreen extends DefaultScreen {
         addText(mainTable, "Camera Scale:", 50, 20, true);
 
         final Slider scaleSlider = addSlider(mainTable, 0, 1, 0.01f, 0, 25, true);
-        scaleSlider.setVisualPercent(App.EFFECTS_VOLUME);
+        scaleSlider.setVisualPercent((App.CAMERA_SCALE / 100f) * 25f);
         scaleSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
