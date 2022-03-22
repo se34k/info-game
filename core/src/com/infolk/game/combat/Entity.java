@@ -11,6 +11,7 @@ import com.infolk.game.screens.components.HealthBar;
 public abstract class Entity {
 
     private int hp;
+    private boolean isDead;
 
     private HealthBar bar;
     private float barWidth, barHeight;
@@ -38,6 +39,7 @@ public abstract class Entity {
 
 
         this.hp = hp;
+        isDead = false;
 
         barWidth = getSprite().getWidth();
         barHeight = barWidth / 5;
@@ -145,6 +147,10 @@ public abstract class Entity {
      */
     public String getName() {
         return name;
+    }
+    
+    public boolean isDead() {
+        return isDead;
     }
 
     /**
