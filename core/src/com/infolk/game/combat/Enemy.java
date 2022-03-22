@@ -35,8 +35,8 @@ public abstract class Enemy extends NPC {
     } else if (richtung.x > 0) {
       y = 1;
     }
-
-    move(x, y);
+    setDirection(richtung);
+    //move(x, y);
   }
 
   public boolean isAttackable() {
