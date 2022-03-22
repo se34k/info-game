@@ -5,13 +5,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public abstract class Enemy extends NPC {
 
-  private boolean isDead;
   private boolean isAttackable;
   private float reach;
 
   protected Enemy(String name, int hp, Sprite sprite, float x, float y, float reach) {
     super(name, hp, sprite, x, y);
-    isDead = false;
     isAttackable = false;
     this.reach = reach;
   }
@@ -39,10 +37,6 @@ public abstract class Enemy extends NPC {
     }
 
     move(x, y);
-  }
-
-  public boolean isDead() {
-    return isDead;
   }
 
   public boolean isAttackable() {
