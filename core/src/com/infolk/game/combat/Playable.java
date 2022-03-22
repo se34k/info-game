@@ -13,10 +13,14 @@ public class Playable extends MortalBeing {
     public Playable(String name, int hp, Sprite sprite, float x, float y) {
         super(name, hp, sprite, x, y);
 
+        getSprite().setSize(getSprite().getWidth() / 4, getSprite().getHeight() / 4);
+        super.adjustHitbox();
+
         dashFactor = 1;
         energy = 100f;
         super.displayBar = false;
-        setSpeed(200);
+        setPosition(20, 20);
+        setSpeed(50);
     }
 
     @Override

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="11" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="11" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="6">
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="11" height="13">
   <data encoding="csv">
@@ -18,4 +18,10 @@
 383,384,385,386,387,388,389,390,391,392,393
 </data>
  </layer>
+ <objectgroup id="2" name="border">
+  <object id="1" x="-7.10543e-15" y="0.333333" width="175.667" height="20.6667"/>
+  <object id="2" x="144.47" y="18.8637" width="31.0605" height="188.939"/>
+  <object id="4" x="0.136417" y="19.8638" width="31.0605" height="188.939"/>
+  <object id="5" x="19.4698" y="176.864" width="144.061" height="30.939"/>
+ </objectgroup>
 </map>

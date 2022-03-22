@@ -12,6 +12,8 @@ public abstract class Entity {
     private float speed;
     private Sprite sprite;
 
+    private boolean isCollider;
+
     private String name;
 
     private Rectangle hitbox;
@@ -27,6 +29,8 @@ public abstract class Entity {
 
         hitbox = new Rectangle();
         adjustHitbox();
+
+        isCollider = true;
     }
 
     protected Entity(String name, Sprite sprite, float x, float y) {
@@ -48,7 +52,7 @@ public abstract class Entity {
         return sprite;
     }
 
-    private void adjustHitbox() {
+    protected void adjustHitbox() {
         hitbox.setX(getX());
         hitbox.setY(getY());
         hitbox.setWidth(sprite.getWidth());

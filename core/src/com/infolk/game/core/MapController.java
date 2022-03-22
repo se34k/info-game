@@ -6,18 +6,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
+
 import com.infolk.game.combat.DavyCrockett;
 import com.infolk.game.combat.Entity;
+import com.infolk.game.combat.EntityObject;
 import com.infolk.game.combat.Playable;
 
 /**
@@ -34,22 +39,28 @@ public class MapController {
     private TiledMap map;
     public OrthogonalTiledMapRenderer renderer;
 
+    private AssetManager assetManager;
+
     public MapController(String mapId) {
         entities = new ArrayList<>();
+        assetManager = new AssetManager();
 
         move = new Movement();
 
         this.mapId = mapId;
 
-        AssetManager assetManager = new AssetManager();
+        loadMap(mapId);
+    }
+
+    private void loadMap(String mapId) {
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         
-        assetManager.load("maps/real/buero.tmx", TiledMap.class);
+        assetManager.load("maps/real/" + mapId + ".tmx", TiledMap.class);
         assetManager.finishLoading();
 
-        map = assetManager.get("maps/real/buero.tmx");
+        map = assetManager.get("maps/real/" + mapId + ".tmx");
 
-        renderer = new OrthogonalTiledMapRenderer(map, 4f);
+        renderer = new OrthogonalTiledMapRenderer(map, 1f);
     }
 
     public String getMapId() {
@@ -120,19 +131,16 @@ public class MapController {
             }
         }
 
-        /*
-        if (map.getLayers().size() > 1) {
-            MapLayer collisionLayer = map.getLayers().get(1);
-            MapObjects objects = collisionLayer.getObjects();
-    
-            for (RectangleMapObject rmo : objects.getByType(RectangleMapObject.class)) {
-                if (shape.overlaps(rmo.getRectangle())) {
-                    violators.add(rmo.getRectangle());
-                }
+
+        MapLayer collisionLayer = map.getLayers().get("border");
+        MapObjects objects = collisionLayer.getObjects();
+
+        for (RectangleMapObject rmo : objects.getByType(RectangleMapObject.class)) {
+            if (shape.overlaps(rmo.getRectangle())) {
+                violators.add(new EntityObject("bullshit", new Sprite()));
             }
         }
-        */
-    
+        
         return violators;
     }
 

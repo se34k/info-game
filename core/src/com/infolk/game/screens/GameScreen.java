@@ -54,11 +54,9 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		color.setColor(Color.WHITE);
 		color.fill();
 
-		// mainTable.setBackground(new Image(new Texture(color)).getDrawable());
-
 		// Create a camera so we will be able to follow the player later on
-		camera = new OrthographicCamera(Gdx.graphics.getWidth() / App.CAMERA_SCALE,
-				Gdx.graphics.getHeight() / App.CAMERA_SCALE);
+		camera = new OrthographicCamera(Gdx.graphics.getWidth() / (App.CAMERA_SCALE * 5),
+				Gdx.graphics.getHeight() / (App.CAMERA_SCALE * 5));
 		// The camera's position has to be set in the center of the viewport
 		camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
 
@@ -78,11 +76,7 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		Sprite playerSprite = new Sprite(new Texture(Gdx.files.internal("sprites/janitor_0.png")));
 		Playable player = new Playable("Player", 10, new Sprite(playerSprite), 0, 0);
 
-		Sprite obstacleSprite = new Sprite(new Texture(Gdx.files.internal("sprites/badlogic.jpg")));
-		EntityObject obstacle = new EntityObject("obst", obstacleSprite, 300, 300);
-
 		mapController.addPlayer(player);
-		mapController.addEntity(obstacle);
 	}
 
 	@Override

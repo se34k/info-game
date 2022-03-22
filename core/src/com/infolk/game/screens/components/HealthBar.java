@@ -12,7 +12,7 @@ public class HealthBar {
 
     private ArrayList<Texture> hearts;
 
-    private Texture heart = new Texture(Gdx.files.internal("healthbar/heart.png"));
+    private Texture heart = new Texture(Gdx.files.internal("healthbar/heart2.png"));
     private Texture border = new Texture(Gdx.files.internal("healthbar/border.png"));
 
     public HealthBar(float x, float y, float width, float height, float currentHealth, float maxHealth) {
