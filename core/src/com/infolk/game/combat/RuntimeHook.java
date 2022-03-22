@@ -1,5 +1,5 @@
 package com.infolk.game.combat;
 
 public interface RuntimeHook {
-    public void handleLoopIteration();
+    public void handleLoopIteration(float delta);
 }

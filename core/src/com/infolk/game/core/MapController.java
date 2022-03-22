@@ -6,12 +6,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
+
 import com.infolk.game.combat.Entity;
+import com.infolk.game.combat.EntityObject;
 import com.infolk.game.combat.Playable;
 
 /**
@@ -28,22 +38,28 @@ public class MapController {
     private TiledMap map;
     public OrthogonalTiledMapRenderer renderer;
 
+    private AssetManager assetManager;
+
     public MapController(String mapId) {
         entities = new ArrayList<>();
+        assetManager = new AssetManager();
 
         move = new Movement();
 
         this.mapId = mapId;
 
-        AssetManager assetManager = new AssetManager();
+        loadMap(mapId);
+    }
+
+    private void loadMap(String mapId) {
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         
-        assetManager.load("maps/real/buero.tmx", TiledMap.class);
+        assetManager.load("maps/maps2/" + mapId + ".tmx", TiledMap.class);
         assetManager.finishLoading();
 
-        map = assetManager.get("maps/real/buero.tmx");
+        map = assetManager.get("maps/maps2/" + mapId + ".tmx");
 
-        renderer = new OrthogonalTiledMapRenderer(map, 4f);
+        renderer = new OrthogonalTiledMapRenderer(map, 1f);
     }
 
     public String getMapId() {
@@ -64,6 +80,8 @@ public class MapController {
     public void addPlayer(Playable player) {
         addEntity(player);
         this.player = player;
+
+        player.setPosition(100, 100);
     }
 
     public Playable getPlayer() {
@@ -71,37 +89,29 @@ public class MapController {
     }
 
     public void onLoop(float delta) {
-        //Just for fun - this spawns a new Davy Crockett
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-           
-        }
-
         move.processKeys(player);
 
-        System.out.println(player.getVelocity().angleDeg());
         // Testing
-        if(Gdx.input.isKeyJustPressed(Input.Keys.G)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
             Rectangle hitboxAttack = new Rectangle(0,0,0,0);
-            System.out.println("ATTACKING");
-            switch((int)player.getVelocity().angleDeg()) {
+            switch ((int) player.getVelocity().angleDeg()) {
                 case 0:
                     hitboxAttack = new Rectangle(player.getX() + 30f, player.getY(), 50f, 50f);
-                break;
+                    break;
                 case 90:
                     hitboxAttack = new Rectangle(player.getX(), player.getY() + 30f, 50f, 50f);
-                break;
+                    break;
                 case 180:
                     hitboxAttack = new Rectangle(player.getX() - 30f, player.getY(), 50f, 50f);
-                break;
+                    break;
                 case 270:
                     hitboxAttack = new Rectangle(player.getX(), player.getY() - 30f, 50f, 50f);
-                break;
+                    break;
             }
 
             ArrayList<Entity> overlaps = collisions(hitboxAttack, player);
             for (Entity entity : overlaps) {
                 entity.changeHP(-1);
-                System.out.println(entity.getName());
                 if(entity.getHP() <= 0) {
                    entities.remove(entity);
                 }
@@ -114,7 +124,7 @@ public class MapController {
 
             ArrayList<Entity> violators = collisions(e);
             if (!violators.isEmpty()) {
-                // e.onCollision(violators);
+                e.onCollision(violators);
 
                 cdelta = 1; // Temporary fix - if object already has collided, setting cdelta to 1 will
                             // ensure one full step is checked as opposed to only a fraction of that -
@@ -143,19 +153,16 @@ public class MapController {
             }
         }
 
-        /*
-        if (map.getLayers().size() > 1) {
-            MapLayer collisionLayer = map.getLayers().get(1);
-            MapObjects objects = collisionLayer.getObjects();
-    
-            for (RectangleMapObject rmo : objects.getByType(RectangleMapObject.class)) {
-                if (shape.overlaps(rmo.getRectangle())) {
-                    violators.add(rmo.getRectangle());
-                }
+
+        MapLayer collisionLayer = map.getLayers().get("border");
+        MapObjects objects = collisionLayer.getObjects();
+
+        for (RectangleMapObject rmo : objects.getByType(RectangleMapObject.class)) {
+            if (shape.overlaps(rmo.getRectangle())) {
+                violators.add(new EntityObject("bullshit", new Sprite(), 10));
             }
         }
-        */
-    
+        
         return violators;
     }
 

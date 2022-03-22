@@ -18,6 +18,12 @@ public class GameManager {
         mclisteners = new ArrayList<>();
     }
 
+    public void startGame() {
+        String startMap = "dungeon";
+        createAndAddMap(startMap);
+        changeCurrentMap(startMap);
+    }
+
     public void addMap(MapController map) {
         maps.add(map);
     }

@@ -61,8 +61,11 @@ public class App extends Game {
 
 		manager = new GameManager();
 
-		manager.createAndAddMap("test");
-		manager.changeCurrentMap("test");
+		// manager.createAndAddMap("test");
+		// manager.changeCurrentMap("test");
+
+		manager.startGame();
+		
 
 		lastScreen = ScreenState.MENU;
 		currentScreen = ScreenState.MENU;

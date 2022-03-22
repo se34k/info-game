@@ -1,0 +1,12 @@
+{
+    "spawn" : [ 16, 16 ],
+    "source" : "buero.tmx",
+    "portals" : [
+        {
+            "id" : 1,
+            "pos" : [64, 48],
+            "width" : "32",
+            "height" : "32"
+        }
+    ]
+}

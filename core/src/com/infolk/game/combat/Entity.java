@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.infolk.game.screens.components.HealthBar;
 
-public abstract class Entity {
+public abstract class Entity implements RuntimeHook {
 
     private int hp;
     private boolean isDead;
@@ -20,6 +20,8 @@ public abstract class Entity {
     private Vector2 direction;
     private float speed;
     private Sprite sprite;
+
+    private boolean isCollider;
 
     private String name;
 
@@ -37,6 +39,7 @@ public abstract class Entity {
         hitbox = new Rectangle();
         adjustHitbox();
 
+        isCollider = true;
 
         this.hp = hp;
         isDead = false;
@@ -66,7 +69,7 @@ public abstract class Entity {
         return sprite;
     }
 
-    private void adjustHitbox() {
+    protected void adjustHitbox() {
         hitbox.setX(getX());
         hitbox.setY(getY());
         hitbox.setWidth(sprite.getWidth());
@@ -327,6 +330,10 @@ public abstract class Entity {
      * @param targets Die kollidierenden Entities
      */
     public void onCollision(ArrayList<Entity> targets) {
+        // Placeholder
+    }
+
+    public void handleLoopIteration(float delta) {
         // Placeholder
     }
 }
