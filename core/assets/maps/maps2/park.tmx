@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="43" height="35" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="3">
- <tileset firstgid="1" source="Tileset.tsx"/>
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="43" height="35" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="5">
+ <tileset firstgid="1" source="tileset.tsx"/>
  <layer id="1" name="Kachelebene 1" width="43" height="35">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -249,5 +249,8 @@
   <object id="167" x="624" y="528" width="32" height="32"/>
   <object id="168" x="656" y="528" width="32" height="32"/>
   <object id="2" x="64" y="0.25" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="3" name="spawn">
+  <object id="4" name="1" x="663.273" y="439.273" width="16" height="16"/>
  </objectgroup>
 </map>

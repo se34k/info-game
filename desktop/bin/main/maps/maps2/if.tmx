@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="12" height="8" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="12">
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="12" height="8">
+  <data encoding="csv">
+728,729,730,731,732,733,734,735,736,737,738,739,
+750,751,752,753,754,755,756,757,758,759,760,761,
+772,773,774,775,776,777,778,779,780,781,782,783,
+794,795,796,797,798,799,800,801,802,803,804,805,
+816,817,818,819,820,821,822,823,824,825,826,827,
+838,839,840,841,842,843,844,845,846,847,848,849,
+860,861,862,863,864,865,866,867,868,869,870,871,
+882,883,884,885,886,887,888,889,890,891,892,893
+</data>
+ </layer>
+ <layer id="3" name="inder" width="12" height="8" offsetx="2" offsety="5.1">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,785,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="2" name="Border">
+  <object id="1" x="0.25" y="0.375" width="70.25" height="8.375"/>
+  <object id="2" x="70.875" y="0.3125" width="76" height="23.75"/>
+  <object id="3" x="147.375" y="0.4375" width="44.5" height="8.375"/>
+  <object id="4" x="176.375" y="9.1875" width="15.625" height="118.625"/>
+  <object id="5" x="0.375" y="112.313" width="175.375" height="15.375"/>
+  <object id="6" x="0.3125" y="8.8125" width="15.625" height="103"/>
+  <object id="7" x="32.0625" y="41.0625" width="16.625" height="29.25"/>
+  <object id="8" x="71.1875" y="54.0625" width="76" height="11.875"/>
+  <object id="10" x="72.25" y="100.938" width="76" height="11"/>
+ </objectgroup>
+ <objectgroup id="4" name="spawn">
+  <object id="11" name="1" x="16.9091" y="88.1818" width="16" height="16"/>
+ </objectgroup>
+</map>

@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import com.infolk.game.App;
 import com.infolk.game.App.ScreenState;
-import com.infolk.game.combat.EntityObject;
 import com.infolk.game.combat.Playable;
 import com.infolk.game.core.GameManager;
 import com.infolk.game.core.MapController;

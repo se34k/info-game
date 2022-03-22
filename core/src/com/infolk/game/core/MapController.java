@@ -54,10 +54,10 @@ public class MapController {
     private void loadMap(String mapId) {
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         
-        assetManager.load("maps/real/" + mapId + ".tmx", TiledMap.class);
+        assetManager.load("maps/maps2/" + mapId + ".tmx", TiledMap.class);
         assetManager.finishLoading();
 
-        map = assetManager.get("maps/real/" + mapId + ".tmx");
+        map = assetManager.get("maps/maps2/" + mapId + ".tmx");
 
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
     }
@@ -80,6 +80,8 @@ public class MapController {
     public void addPlayer(Playable player) {
         addEntity(player);
         this.player = player;
+
+        player.setPosition(100, 100);
     }
 
     public Playable getPlayer() {
@@ -87,37 +89,29 @@ public class MapController {
     }
 
     public void onLoop(float delta) {
-        //Just for fun - this spawns a new Davy Crockett
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-           
-        }
-
         move.processKeys(player);
 
-        System.out.println(player.getVelocity().angleDeg());
         // Testing
-        if(Gdx.input.isKeyJustPressed(Input.Keys.G)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
             Rectangle hitboxAttack = new Rectangle(0,0,0,0);
-            System.out.println("ATTACKING");
-            switch((int)player.getVelocity().angleDeg()) {
+            switch ((int) player.getVelocity().angleDeg()) {
                 case 0:
                     hitboxAttack = new Rectangle(player.getX() + 30f, player.getY(), 50f, 50f);
-                break;
+                    break;
                 case 90:
                     hitboxAttack = new Rectangle(player.getX(), player.getY() + 30f, 50f, 50f);
-                break;
+                    break;
                 case 180:
                     hitboxAttack = new Rectangle(player.getX() - 30f, player.getY(), 50f, 50f);
-                break;
+                    break;
                 case 270:
                     hitboxAttack = new Rectangle(player.getX(), player.getY() - 30f, 50f, 50f);
-                break;
+                    break;
             }
 
             ArrayList<Entity> overlaps = collisions(hitboxAttack, player);
             for (Entity entity : overlaps) {
                 entity.changeHP(-1);
-                System.out.println(entity.getName());
                 if(entity.getHP() <= 0) {
                    entities.remove(entity);
                 }

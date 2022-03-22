@@ -19,7 +19,7 @@ public class GameManager {
     }
 
     public void startGame() {
-        String startMap = "halle";
+        String startMap = "dungeon";
         createAndAddMap(startMap);
         changeCurrentMap(startMap);
     }
