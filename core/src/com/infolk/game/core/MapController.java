@@ -20,7 +20,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 
-import com.infolk.game.combat.DavyCrockett;
 import com.infolk.game.combat.Entity;
 import com.infolk.game.combat.EntityObject;
 import com.infolk.game.combat.Playable;
@@ -90,19 +89,48 @@ public class MapController {
     public void onLoop(float delta) {
         //Just for fun - this spawns a new Davy Crockett
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            DavyCrockett dc = new DavyCrockett();
-            dc.setPosition(player.getX(), player.getY() + 50);
-            addEntity(dc);
+           
         }
 
         move.processKeys(player);
+
+        System.out.println(player.getVelocity().angleDeg());
+        // Testing
+        if(Gdx.input.isKeyJustPressed(Input.Keys.G)) {
+            Rectangle hitboxAttack = new Rectangle(0,0,0,0);
+            System.out.println("ATTACKING");
+            switch((int)player.getVelocity().angleDeg()) {
+                case 0:
+                    hitboxAttack = new Rectangle(player.getX() + 30f, player.getY(), 50f, 50f);
+                break;
+                case 90:
+                    hitboxAttack = new Rectangle(player.getX(), player.getY() + 30f, 50f, 50f);
+                break;
+                case 180:
+                    hitboxAttack = new Rectangle(player.getX() - 30f, player.getY(), 50f, 50f);
+                break;
+                case 270:
+                    hitboxAttack = new Rectangle(player.getX(), player.getY() - 30f, 50f, 50f);
+                break;
+            }
+
+            ArrayList<Entity> overlaps = collisions(hitboxAttack, player);
+            for (Entity entity : overlaps) {
+                entity.changeHP(-1);
+                System.out.println(entity.getName());
+                if(entity.getHP() <= 0) {
+                   entities.remove(entity);
+                }
+            }
+        }
+        //
 
         for (Entity e : entities) {
             float cdelta = delta;
 
             ArrayList<Entity> violators = collisions(e);
             if (!violators.isEmpty()) {
-                // e.onCollision(violators);
+                e.onCollision(violators);
 
                 cdelta = 1; // Temporary fix - if object already has collided, setting cdelta to 1 will
                             // ensure one full step is checked as opposed to only a fraction of that -
@@ -137,7 +165,7 @@ public class MapController {
 
         for (RectangleMapObject rmo : objects.getByType(RectangleMapObject.class)) {
             if (shape.overlaps(rmo.getRectangle())) {
-                violators.add(new EntityObject("bullshit", new Sprite()));
+                violators.add(new EntityObject("bullshit", new Sprite(), 10));
             }
         }
         

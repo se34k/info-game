@@ -6,8 +6,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.infolk.game.screens.components.HealthBar;
 
 public abstract class Entity {
+
+    private int hp;
+
+    private HealthBar bar;
+    private float barWidth, barHeight;
+    public boolean displayBar = true;
+
     private Vector2 direction;
     private float speed;
     private Sprite sprite;
@@ -18,7 +26,7 @@ public abstract class Entity {
 
     private Rectangle hitbox;
 
-    protected Entity(String name, Sprite sprite) {
+    protected Entity(String name, int hp, Sprite sprite) {
         this.name = name;
 
         // Initialize vector with 0, 0
@@ -31,10 +39,17 @@ public abstract class Entity {
         adjustHitbox();
 
         isCollider = true;
+
+        this.hp = hp;
+
+        barWidth = getSprite().getWidth();
+        barHeight = barWidth / 5;
+
+        bar = new HealthBar(getBarX(), getBarY(), barWidth, barHeight, hp, hp);
     }
 
-    protected Entity(String name, Sprite sprite, float x, float y) {
-        this(name, sprite);
+    protected Entity(String name, int hp, Sprite sprite, float x, float y) {
+        this(name, hp, sprite);
 
         setPosition(x, y);
     }
@@ -246,6 +261,34 @@ public abstract class Entity {
      */
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
+
+        if (displayBar) {
+            bar.x = getBarX();
+            bar.y = getBarY();
+            bar.update();
+            bar.draw(batch);
+        }
+    }
+
+    private float getBarX() {
+        return getSprite().getX() + getSprite().getWidth() / 2 - barWidth / 2;
+    }
+
+    private float getBarY() {
+        return getSprite().getY() + getSprite().getHeight();
+    }
+
+    public int getHP() {
+        return hp;
+    }
+
+    public void setHP(int hp) {
+        this.hp = hp;
+    }
+
+    public void changeHP(int change) {
+        setHP(hp + change);
+        bar.setCurrentHealth(hp);
     }
 
     /**
