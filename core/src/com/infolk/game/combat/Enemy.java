@@ -20,10 +20,10 @@ public abstract class Enemy extends NPC {
     }
     
     Vector2 richtung = vectorTo(player); // Richtungsvektor zwischen Player und Gegner
-
+    /*
     float x = 0;
     float y = 0;
-
+    
     if (richtung.x < 0) {
       x = -1;
     } else if (richtung.x > 0) {
@@ -34,7 +34,7 @@ public abstract class Enemy extends NPC {
       y = -1;
     } else if (richtung.x > 0) {
       y = 1;
-    }
+    } */
     setDirection(richtung);
     //move(x, y);
   }
@@ -46,4 +46,13 @@ public abstract class Enemy extends NPC {
   public boolean isInAttackReach(Entity player) {
     return (distanceTo(player) <= reach);
   }
+  
+  public void setReach(float reach){
+    this.reach = reach;  
+  }
+  
+  public float getReach(){
+    return reach;  
+  }
 }
+
