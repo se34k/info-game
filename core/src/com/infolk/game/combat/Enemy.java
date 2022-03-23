@@ -50,5 +50,9 @@ public abstract class Enemy extends NPC {
   public void setReach(float reach){
     this.reach = reach;  
   }
+  
+  public float getReach(){
+    return reach;  
+  }
 }
 
