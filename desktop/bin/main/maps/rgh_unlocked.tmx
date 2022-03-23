@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="7" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="42">
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="7" height="18">
+  <data encoding="csv">
+309,310,311,312,313,314,315,
+331,332,333,334,335,336,337,
+353,354,355,356,357,358,359,
+375,376,377,378,379,380,381,
+397,398,399,400,401,402,403,
+419,420,421,422,423,424,425,
+441,442,443,444,445,446,447,
+463,464,465,466,467,515,516,
+485,486,487,488,489,537,538,
+507,508,509,510,511,559,560,
+529,530,531,532,533,581,582,
+551,552,553,554,555,556,557,
+573,574,575,576,577,578,579,
+595,596,597,598,599,600,601,
+617,618,619,620,621,625,626,
+639,640,641,642,643,647,648,
+661,662,663,664,665,666,667,
+683,684,685,686,687,688,689
+</data>
+ </layer>
+ <objectgroup id="2" name="border">
+  <object id="16" x="0.582563" y="48.5905" width="31.2727" height="221.727"/>
+  <object id="17" x="0.242642" y="0.776351" width="14.3636" height="47.7273"/>
+  <object id="18" x="15.8563" y="0.594533" width="30.7727" height="14.1818"/>
+  <object id="19" x="47.3335" y="1.77636" width="51.7272" height="14.1818"/>
+  <object id="20" x="96.3335" y="17.2991" width="15.7272" height="105.44"/>
+  <object id="21" x="32.6517" y="257.413" width="63.159" height="14.1818"/>
+  <object id="22" x="100.197" y="1.25363" width="12.2272" height="15.1818"/>
+  <object id="30" x="97.0872" y="257.242" width="14.8257" height="14.1818"/>
+  <object id="31" x="96.7538" y="170.576" width="14.8257" height="58.8485"/>
+ </objectgroup>
+ <objectgroup id="3" name="spawn">
+  <object id="33" name="1" x="16.0872" y="32.1553" width="15.7272" height="15.3637"/>
+  <object id="34" name="2" x="37.519" y="149.814" width="15.7272" height="15.3637"/>
+  <object id="35" name="3" x="80.1364" y="233.318" width="15.7272" height="15.3637"/>
+ </objectgroup>
+ <objectgroup id="4" name="event">
+  <object id="36" name="buero_entry" x="15.1667" y="41.1817" width="17.3636" height="6.63643"/>
+  <object id="37" name="entry_baustelle" x="94.7727" y="52.1211" width="15.7272" height="15.3637"/>
+  <object id="38" name="entry_shop" x="104.106" y="115.787" width="6.39387" height="56.697"/>
+  <object id="39" name="entry_if" x="33.1061" y="149.121" width="5.39387" height="15.3637"/>
+  <object id="40" name="entry_boss" x="105.106" y="224.121" width="6.39387" height="32.3637"/>
+  <object id="41" name="entry_park" x="32.6515" y="253.015" width="63.3636" height="3.3031"/>
+ </objectgroup>
+</map>

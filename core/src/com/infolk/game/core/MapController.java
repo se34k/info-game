@@ -1,6 +1,7 @@
 package com.infolk.game.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,16 +10,14 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 
 import com.infolk.game.combat.Entity;
 import com.infolk.game.combat.EntityObject;
@@ -40,11 +39,14 @@ public class MapController {
 
     private AssetManager assetManager;
 
+    private HashMap<Integer, MapObject> spawns;
+
     public MapController(String mapId) {
         entities = new ArrayList<>();
         assetManager = new AssetManager();
 
         move = new Movement();
+        spawns = new HashMap<>();
 
         this.mapId = mapId;
 
@@ -54,12 +56,32 @@ public class MapController {
     private void loadMap(String mapId) {
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         
-        assetManager.load("maps/maps2/" + mapId + ".tmx", TiledMap.class);
+        assetManager.load("maps/" + mapId + ".tmx", TiledMap.class);
         assetManager.finishLoading();
 
-        map = assetManager.get("maps/maps2/" + mapId + ".tmx");
+        map = assetManager.get("maps/" + mapId + ".tmx");
 
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
+
+        MapLayer spawnLayer = map.getLayers().get("spawn");
+        MapObjects spawnPoints = spawnLayer.getObjects();
+
+        for (MapObject spawn : spawnPoints) {
+            spawns.put(Integer.parseInt(spawn.getName()), spawn);
+        }
+    }
+
+    public void spawnPlayerAt(Playable player, int spawnId) {
+        if (spawns.containsKey(spawnId)) {
+            if (getPlayer() != player) {
+                addPlayer(player);
+            }
+
+            MapObject spawnPoint = spawns.get(spawnId);
+            MapProperties props = spawnPoint.getProperties();
+    
+            player.setPosition((float) props.get("x"), (float) props.get("y"));
+        }
     }
 
     public String getMapId() {
@@ -152,7 +174,6 @@ public class MapController {
                 violators.add(e);
             }
         }
-
 
         MapLayer collisionLayer = map.getLayers().get("border");
         MapObjects objects = collisionLayer.getObjects();
