@@ -20,10 +20,10 @@ public abstract class Enemy extends NPC {
     }
     
     Vector2 richtung = vectorTo(player); // Richtungsvektor zwischen Player und Gegner
-
+    /*
     float x = 0;
     float y = 0;
-    /*
+    
     if (richtung.x < 0) {
       x = -1;
     } else if (richtung.x > 0) {
