@@ -46,4 +46,9 @@ public abstract class Enemy extends NPC {
   public boolean isInAttackReach(Entity player) {
     return (distanceTo(player) <= reach);
   }
+  
+  public void setReach(float reach){
+    this.reach = reach;  
+  }
 }
+
