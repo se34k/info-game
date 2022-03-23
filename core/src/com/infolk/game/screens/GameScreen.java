@@ -44,6 +44,8 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 			}
 		});
 
+		// addText(mainTable, "Press E to enter", 100, 0, false);
+
 		float barX = 90, barY = Gdx.graphics.getHeight() - barHeight * 1.3f;
 		bar = new HealthBar(barX, barY, barWidth, barHeight, 5, 10);
 
@@ -75,7 +77,7 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		Sprite playerSprite = new Sprite(new Texture(Gdx.files.internal("sprites/janitor_0.png")));
 		Playable player = new Playable("Player", 10, new Sprite(playerSprite), 0, 0);
 
-		mapController.addPlayer(player);
+		mapController.spawnPlayerAt(player, 1);
 	}
 
 	@Override

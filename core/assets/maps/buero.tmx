@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="5" height="4" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="11">
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <layer id="1" name="Kachelebene 1" width="5" height="4">
+  <data encoding="csv">
+67,68,69,70,71,
+89,90,91,92,93,
+111,112,113,114,115,
+133,134,135,136,137
+</data>
+ </layer>
+ <objectgroup id="3" name="border">
+  <object id="1" x="16.8182" y="0" width="63.3011" height="8"/>
+  <object id="2" x="0.272727" y="0.454545" width="16.1818" height="62.4545"/>
+  <object id="3" x="16.909" y="47.3636" width="46.8182" height="16.1818"/>
+  <object id="4" x="64" y="8.27273" width="16" height="55.4545"/>
+ </objectgroup>
+ <objectgroup id="4" name="spawn">
+  <object id="7" name="1" x="16.7585" y="31.9091" width="15.2102" height="15.2727"/>
+  <object id="8" name="2" x="48.1222" y="16.1818" width="15.2102" height="15.2727"/>
+ </objectgroup>
+ <objectgroup id="5" name="event">
+  <object id="10" name="buero_door" x="48.6449" y="8.48865" width="15.2102" height="8.0227"/>
+ </objectgroup>
+</map>

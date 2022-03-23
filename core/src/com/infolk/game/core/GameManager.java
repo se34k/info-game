@@ -13,15 +13,19 @@ public class GameManager {
 
     private ArrayList<MapChangeListener> mclisteners;
 
+    private int chapter;
+
     public GameManager() {
         maps = new ArrayList<>();
         mclisteners = new ArrayList<>();
     }
 
     public void startGame() {
-        String startMap = "dungeon";
+        String startMap = "rgh_all_locked";
         createAndAddMap(startMap);
         changeCurrentMap(startMap);
+
+        chapter = 1;
     }
 
     public void addMap(MapController map) {
