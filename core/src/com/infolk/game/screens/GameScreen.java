@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import com.infolk.game.App;
 import com.infolk.game.App.ScreenState;
+import com.infolk.game.combat.Assi;
 import com.infolk.game.combat.Playable;
 import com.infolk.game.core.GameManager;
 import com.infolk.game.core.MapController;
@@ -75,6 +76,10 @@ public class GameScreen extends DefaultScreen implements MapChangeListener {
 		Sprite playerSprite = new Sprite(new Texture(Gdx.files.internal("sprites/janitor_0.png")));
 		Playable player = new Playable("Player", 10, new Sprite(playerSprite), 0, 0);
 
+		Assi a = new Assi(0, 0);
+		a.setPosition(50, 100);
+		
+		mapController.addEntity(a);
 		mapController.spawnPlayerAt(player, 1);
 	}
 

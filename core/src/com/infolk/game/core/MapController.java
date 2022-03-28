@@ -9,6 +9,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -18,7 +20,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-
 import com.infolk.game.combat.Entity;
 import com.infolk.game.combat.EntityObject;
 import com.infolk.game.combat.Playable;
@@ -37,6 +38,8 @@ public class MapController {
     private TiledMap map;
     public OrthogonalTiledMapRenderer renderer;
 
+    private ShapeRenderer render;
+
     private AssetManager assetManager;
 
     private HashMap<Integer, MapObject> spawns;
@@ -49,6 +52,8 @@ public class MapController {
         spawns = new HashMap<>();
 
         this.mapId = mapId;
+
+        render = new ShapeRenderer();
 
         loadMap(mapId);
     }
@@ -83,7 +88,6 @@ public class MapController {
             player.setPosition((float) props.get("x"), (float) props.get("y"));
         }
     }
-
     public String getMapId() {
         return mapId;
     }
@@ -113,22 +117,27 @@ public class MapController {
     public void onLoop(float delta) {
         move.processKeys(player);
 
-        // Testing
+        // Combat
+            // Besen
         if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
             Rectangle hitboxAttack = new Rectangle(0,0,0,0);
-            switch ((int) player.getVelocity().angleDeg()) {
+            float x = player.getX();
+            float y = player.getY();
+            int deg = (int)player.getVelocity().angleDeg();
+            System.out.println(deg);
+            switch (deg) {
                 case 0:
-                    hitboxAttack = new Rectangle(player.getX() + 30f, player.getY(), 50f, 50f);
-                    break;
+                    hitboxAttack = new Rectangle(x + 8f, y, 50f, 50f);
+                break;
                 case 90:
-                    hitboxAttack = new Rectangle(player.getX(), player.getY() + 30f, 50f, 50f);
-                    break;
+                    hitboxAttack = new Rectangle(x - 1, y + 12f, 50f, 50f);
+                break;
                 case 180:
-                    hitboxAttack = new Rectangle(player.getX() - 30f, player.getY(), 50f, 50f);
-                    break;
+                    hitboxAttack = new Rectangle(x - 10f, y, 50f, 50f);
+                break;
                 case 270:
-                    hitboxAttack = new Rectangle(player.getX(), player.getY() - 30f, 50f, 50f);
-                    break;
+                    hitboxAttack = new Rectangle(x - 1, y - 10f, 50f, 50f);
+                break;
             }
 
             ArrayList<Entity> overlaps = collisions(hitboxAttack, player);
@@ -139,6 +148,12 @@ public class MapController {
                 }
             }
         }
+            //
+            // Buch
+            if(Gdx.input.isButtonJustPressed(Input.Keys.B)) {
+                player.throwBook(entities);
+            }
+            //
         //
 
         for (Entity e : entities) {
@@ -189,7 +204,9 @@ public class MapController {
 
     public void draw(SpriteBatch batch) {
         renderer.render();
-        
+        if(render.getProjectionMatrix() != batch.getProjectionMatrix()) {
+            render.setProjectionMatrix(batch.getProjectionMatrix());
+        }
         for (Entity entity : entities) {
             entity.draw(batch);
         }

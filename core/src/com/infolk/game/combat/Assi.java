@@ -7,6 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class Assi extends Enemy {
 
   public Assi(float x, float y) {
-    super("Assi", 15, new Sprite(new Texture(Gdx.files.internal("Assi.png"))), x, y, 10);
+    super("Assi", 15, new Sprite(new Texture(Gdx.files.internal("sprites/assi1_1.png"))), x, y, 10);
   }
 }
