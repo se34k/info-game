@@ -56,6 +56,14 @@ public abstract class Entity implements RuntimeHook {
         setPosition(x, y);
     }
 
+    public boolean isCollider() {
+        return isCollider;
+    }
+
+    public void setIsCollider(boolean isCollider) {
+        this.isCollider = isCollider;
+    }
+
     /**
      * Sets this entity's sprite
      * 

@@ -21,11 +21,15 @@ public class GameManager {
     }
 
     public void startGame() {
-        String startMap = "rgh_all_locked";
+        String startMap = "buero";
         createAndAddMap(startMap);
         changeCurrentMap(startMap);
 
         chapter = 1;
+    }
+
+    public int getChapter() {
+        return chapter;
     }
 
     public void addMap(MapController map) {
@@ -80,5 +84,9 @@ public class GameManager {
 
     public void unregisterMapChangeListener(MapChangeListener mcl) {
         mclisteners.remove(mcl);
+    }
+
+    public void getInventory() {
+        
     }
 }
